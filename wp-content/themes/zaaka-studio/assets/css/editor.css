@@ -456,6 +456,130 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 }
 
 
+/* ------------------------------------------------------------ case study -- */
+
+/* The page opens on a dark band and the featured image is pulled up so it
+   straddles the boundary. That overlap is what stops a case study reading as
+   a title with a picture under it. */
+
+.zk-case { padding-top: 0; }
+
+.zk-case__hero {
+	position: relative; isolation: isolate; overflow: hidden;
+	background: var(--wp--preset--color--void);
+}
+.zk-case__hero::before {
+	content: ""; position: absolute; inset: -40% -10% auto -10%; height: 150%;
+	background:
+		radial-gradient(42% 48% at 14% 4%, rgba(203, 249, 76, .17), transparent 62%),
+		radial-gradient(38% 44% at 88% 18%, rgba(255, 106, 61, .13), transparent 64%);
+	z-index: -1;
+}
+.zk-case__eyebrow { margin-bottom: 1.6rem; }
+.zk-case__eyebrow .wp-block-post-terms { margin: 0; color: var(--wp--preset--color--mist); }
+.zk-case__eyebrow .wp-block-post-terms a { text-decoration: none; color: inherit; }
+.zk-case__eyebrow .wp-block-post-terms a:hover { color: var(--wp--preset--color--volt); }
+
+.zk-case__title.zk-case__title {
+	margin: 0; max-width: 16ch;
+	color: var(--wp--preset--color--paper);
+}
+.zk-case__lede.zk-case__lede {
+	margin: 1.6rem 0 0; max-width: 54ch;
+	color: var(--wp--preset--color--mist);
+	line-height: 1.5; letter-spacing: -.012em;
+}
+
+/* Pulled up into the dark band above. The hero carries matching bottom padding
+   so the overlap is a designed gap, not a collision. */
+.zk-case__media.zk-case__media {
+	margin-top: calc(-1 * var(--wp--preset--spacing--60));
+	margin-bottom: var(--wp--preset--spacing--50);
+	border-radius: 16px; overflow: hidden;
+	border: 1px solid var(--wp--preset--color--hairline);
+	box-shadow: 0 30px 80px rgba(7, 8, 10, .28);
+	background: var(--wp--preset--color--surface);
+}
+.zk-case__media img { display: block; width: 100%; object-fit: cover; }
+
+/* Body: one measured column with real vertical rhythm. Headings get space
+   above rather than below, so each section reads as a block. */
+.zk-case__body > * { margin-top: 1.15rem; margin-bottom: 0; }
+.zk-case__body > h2 {
+	margin-top: var(--wp--preset--spacing--50);
+	padding-top: 1.6rem;
+	border-top: 1px solid var(--wp--preset--color--line);
+	font-size: var(--wp--preset--font-size--xxl);
+}
+.zk-case__body > h3 { margin-top: var(--wp--preset--spacing--30); }
+.zk-case__body > :first-child { margin-top: 0; }
+.zk-case__body > p { color: var(--wp--preset--color--ink); }
+.zk-case__body > ul, .zk-case__body > ol { margin-top: 1.4rem; }
+.zk-case__body li { margin-bottom: .85rem; }
+
+/* Pull-quote. The one place in a case study where a claim gets to stand alone. */
+.zk-case__body blockquote {
+	margin: var(--wp--preset--spacing--40) 0;
+	padding: 0 0 0 var(--wp--preset--spacing--30);
+	border-left: 3px solid var(--wp--preset--color--volt);
+}
+.zk-case__body blockquote p {
+	font-family: var(--wp--preset--font-family--display);
+	font-size: var(--wp--preset--font-size--xl);
+	line-height: 1.32; letter-spacing: -.02em;
+	color: var(--wp--preset--color--ink); margin: 0;
+}
+.zk-case__body code {
+	font-family: var(--wp--preset--font-family--mono);
+	font-size: .88em;
+	background: var(--wp--preset--color--chalk);
+	border: 1px solid var(--wp--preset--color--line);
+	border-radius: 5px; padding: .12em .4em;
+}
+
+/* Closing prompt. */
+.zk-case__next { border-top: 1px solid var(--wp--preset--color--line); }
+.zk-case__next .wp-block-heading { margin: 0; max-width: 26ch; }
+
+.zk-case__more { border-top: 1px solid var(--wp--preset--color--line); padding-top: var(--wp--preset--spacing--50); }
+
+/* Related work at the foot of a case study is usually a single card, which
+   would leave half the row empty in the two-up grid. It runs horizontally
+   instead, so one item still completes the line. */
+.zk-case__more .wp-block-post-template { grid-template-columns: 1fr; row-gap: var(--wp--preset--spacing--40); }
+.zk-case__more .wp-block-post-template > li {
+	display: grid; align-content: center;
+	grid-template-columns: minmax(0, 22rem) 1fr;
+	grid-template-rows: auto auto;
+	column-gap: var(--wp--preset--spacing--40);
+}
+/* Explicit placement: the post template emits three siblings, so without it the
+   title wraps under the image instead of stacking beside it. */
+.zk-case__more .wp-block-post-template > li > .wp-block-post-featured-image {
+	grid-column: 1; grid-row: 1 / span 2; align-self: center;
+}
+.zk-case__more .wp-block-post-template > li > .wp-block-post-terms {
+	grid-column: 2; grid-row: 1; align-self: end;
+}
+.zk-case__more .wp-block-post-template > li > .wp-block-post-title {
+	grid-column: 2; grid-row: 2; align-self: start;
+}
+.zk-case__more .wp-block-post-featured-image { margin-bottom: 0; }
+.zk-case__more .wp-block-post-terms { margin-bottom: .5rem; }
+.zk-case__more .wp-block-post-title { margin: 0; }
+@media (max-width: 781px) {
+	.zk-case__more .wp-block-post-template > li { grid-template-columns: 1fr; row-gap: 1.2rem; }
+	.zk-case__more .wp-block-post-template > li > * { grid-column: 1; grid-row: auto; }
+}
+
+@media (max-width: 781px) {
+	.zk-case__media.zk-case__media {
+		margin-top: calc(-1 * var(--wp--preset--spacing--50));
+		border-radius: 12px;
+	}
+	.zk-case__title.zk-case__title { max-width: none; }
+}
+
 /* --------------------------------------------------------- sector chips -- */
 
 .zk-chips { display: flex; flex-wrap: wrap; gap: .6rem; }

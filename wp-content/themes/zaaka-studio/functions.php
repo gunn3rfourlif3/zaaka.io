@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ZAAKA_VERSION', '1.2.0' );
+define( 'ZAAKA_VERSION', '1.3.0' );
 
 /**
  * Theme supports.
@@ -54,6 +54,29 @@ function zaaka_assets() {
 	);
 }
 add_action( 'wp_enqueue_scripts', 'zaaka_assets' );
+
+/**
+ * Keep the current case study out of its own "Keep reading" list.
+ *
+ * A core query loop with inherit:false does not know what page it is on, so on
+ * a single project the related list happily includes the project you are
+ * already reading. There is no UI for this — it has to be a query filter.
+ */
+function zaaka_exclude_current_project( $query, $block ) {
+	if ( ! is_singular( 'project' ) ) {
+		return $query;
+	}
+	$post_type = $query['post_type'] ?? '';
+	if ( 'project' !== $post_type && ! ( is_array( $post_type ) && in_array( 'project', $post_type, true ) ) ) {
+		return $query;
+	}
+	$excluded            = isset( $query['post__not_in'] ) ? (array) $query['post__not_in'] : array();
+	$excluded[]          = get_queried_object_id();
+	$query['post__not_in'] = array_unique( $excluded );
+
+	return $query;
+}
+add_filter( 'query_loop_block_query_vars', 'zaaka_exclude_current_project', 10, 2 );
 
 /**
  * Drop the inline SVG duotone filters WordPress prints on every request. Small,

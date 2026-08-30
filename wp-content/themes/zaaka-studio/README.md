@@ -38,7 +38,7 @@ Requires WordPress 6.5+ and PHP 8.0+. Tested against 6.8.
 | `index.html` / `archive.html` | Blog listing |
 | `single.html` | Blog post |
 | `archive-project.html` | `/work/` — the project grid |
-| `single-project.html` | A single case study, with the meta bar |
+| `single-project.html` | A single case study — dark hero, overlapping image, measured body |
 | `search.html`, `404.html` | Search results, not-found |
 
 ### Patterns (Inserter → Zaaka)
@@ -52,9 +52,12 @@ never changes another.
 ### Content types
 - **Projects** (`project`) — the case-study post type, archived at `/work/`.
   Taxonomies: **Discipline** and **Sector**, both filterable.
-- Six project fields, editable in the sidebar and rendered by block bindings on
-  the single template: `zaaka_client`, `zaaka_role`, `zaaka_year`,
-  `zaaka_stack`, `zaaka_url`, `zaaka_outcome`, `zaaka_status`.
+- Seven project fields, editable in the sidebar: `zaaka_client`, `zaaka_role`,
+  `zaaka_year`, `zaaka_stack`, `zaaka_url`, `zaaka_outcome`, `zaaka_status`.
+  Only `zaaka_status` is rendered — the client/role/stack/year bar was removed
+  from the case-study template. The other fields stay registered so the data
+  survives; to show any of them again, add a paragraph with a `core/post-meta`
+  binding on that key.
 - `zaaka_status` renders as a coral pill beside the discipline terms — use it
   for honest labels like *In development*, *Live*, *Archived*. Leave it empty
   and the pill disappears.
