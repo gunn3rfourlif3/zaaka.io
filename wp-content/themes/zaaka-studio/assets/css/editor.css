@@ -580,19 +580,119 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 	.zk-case__title.zk-case__title { max-width: none; }
 }
 
+/* ---------------------------------------------------------- sectors band -- */
+
+/* This band sits between two light sections. On chalk it read as an accidental
+   seam rather than a change of gear, so it carries the dark ground and the
+   same faint grid as the hero — the page alternates instead of drifting. */
+.zk-sectors { position: relative; isolation: isolate; overflow: hidden; }
+.zk-sectors::before {
+	content: ""; position: absolute; inset: 0; z-index: -1;
+	background-image:
+		linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
+	background-size: 78px 78px;
+	mask-image: radial-gradient(70% 80% at 70% 30%, #000 20%, transparent 78%);
+}
+.zk-sectors::after {
+	content: ""; position: absolute; inset: auto -12% -55% 42%; height: 90%; z-index: -1;
+	background: radial-gradient(50% 50% at 50% 50%, rgba(203, 249, 76, .13), transparent 68%);
+}
+.zk-sectors .wp-block-columns { align-items: center; }
+.zk-sectors__note { color: var(--wp--preset--color--mist); }
+.zk-sectors__note a { color: var(--wp--preset--color--volt); text-decoration: none; border-bottom: 1px solid rgba(203,249,76,.4); }
+.zk-sectors__note a:hover { border-bottom-color: var(--wp--preset--color--volt); }
+
+/* ------------------------------------------------------------- the steps -- */
+
+.zk-steps {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+	gap: var(--wp--preset--spacing--40);
+}
+.zk-step {
+	position: relative;
+	padding-top: 1.7rem;
+	border-top: 1px solid var(--wp--preset--color--line);
+}
+/* Every step gets the same volt tick. Previously only the fourth had a volt
+   rule, which read as an accident rather than emphasis. On hover the tick
+   runs the width of the column. */
+.zk-step::before {
+	content: ""; position: absolute; top: -2px; left: 0;
+	width: 2.6rem; height: 3px; background: var(--wp--preset--color--volt);
+	transition: width .55s var(--zk-ease-out);
+}
+.zk-step:hover::before { width: 100%; }
+
+/* A ghost numeral gives the column weight without competing with the title. */
+.zk-step .zk-num {
+	font-size: var(--wp--preset--font-size--xxl);
+	font-weight: 800; letter-spacing: -.04em; line-height: 1;
+	color: var(--wp--preset--color--muted);
+	margin-bottom: .7rem;
+	transition: color .4s;
+}
+.zk-step:hover .zk-num { color: var(--wp--preset--color--moss); }
+.zk-step h3 { margin: 0 0 .6rem; }
+.zk-step p { margin: 0; }
+
+.zk-process__head { margin-bottom: 0; }
+.zk-process__title.zk-process__title {
+	flex: 1 1 auto; max-width: 30ch; margin-left: 0; margin-right: auto;
+}
+.zk-process__title .wp-block-heading { margin: 0; }
+.zk-process__aside { max-width: 26ch; text-align: right; margin: 0; }
+
+@media (max-width: 781px) {
+	.zk-process__aside { text-align: left; }
+	.zk-step::before { width: 100%; }
+}
+
 /* --------------------------------------------------------- sector chips -- */
 
-.zk-chips { display: flex; flex-wrap: wrap; gap: .6rem; }
+.zk-chips { display: flex; flex-wrap: wrap; gap: .7rem; }
 .zk-chips span {
+	display: inline-flex; align-items: center; gap: .55rem;
 	border: 1px solid var(--wp--preset--color--hairline);
-	border-radius: 999px; padding: .5rem 1.1rem;
+	border-radius: 999px; padding: .72rem 1.3rem;
+	background: rgba(255, 255, 255, .022);
 	font-size: var(--wp--preset--font-size--sm); color: var(--wp--preset--color--mist);
-	transition: border-color .25s, color .25s, transform .25s var(--zk-ease-out);
+	transition: border-color .3s, color .3s, background .3s,
+	            transform .35s var(--zk-ease-out);
+}
+.zk-chips span::before {
+	content: ""; width: 5px; height: 5px; border-radius: 50%;
+	background: var(--wp--preset--color--hairline);
+	transition: background .3s, transform .35s var(--zk-ease-out);
 }
 .zk-chips span:hover {
 	border-color: var(--wp--preset--color--volt); color: var(--wp--preset--color--paper);
-	transform: translateY(-2px);
+	background: rgba(203, 249, 76, .07);
+	transform: translateY(-3px);
 }
+.zk-chips span:hover::before { background: var(--wp--preset--color--volt); transform: scale(1.6); }
+
+/* The chips arrive in sequence rather than all at once — the band is a list of
+   twelve things, and staggering it is what makes that read as considered. */
+.zk-js .zk-chips--stagger span { opacity: 0; transform: translateY(10px); }
+.zk-js .zk-chips--stagger.is-in span {
+	opacity: 1; transform: none;
+	transition: opacity .5s var(--zk-ease-out), transform .5s var(--zk-ease-out),
+	            border-color .3s, color .3s, background .3s;
+}
+.zk-js .zk-chips--stagger.is-in span:nth-child(1)  { transition-delay: .00s }
+.zk-js .zk-chips--stagger.is-in span:nth-child(2)  { transition-delay: .04s }
+.zk-js .zk-chips--stagger.is-in span:nth-child(3)  { transition-delay: .08s }
+.zk-js .zk-chips--stagger.is-in span:nth-child(4)  { transition-delay: .12s }
+.zk-js .zk-chips--stagger.is-in span:nth-child(5)  { transition-delay: .16s }
+.zk-js .zk-chips--stagger.is-in span:nth-child(6)  { transition-delay: .20s }
+.zk-js .zk-chips--stagger.is-in span:nth-child(7)  { transition-delay: .24s }
+.zk-js .zk-chips--stagger.is-in span:nth-child(8)  { transition-delay: .28s }
+.zk-js .zk-chips--stagger.is-in span:nth-child(9)  { transition-delay: .32s }
+.zk-js .zk-chips--stagger.is-in span:nth-child(10) { transition-delay: .36s }
+.zk-js .zk-chips--stagger.is-in span:nth-child(11) { transition-delay: .40s }
+.zk-js .zk-chips--stagger.is-in span:nth-child(12) { transition-delay: .44s }
 .zk-light .zk-chips span { border-color: var(--wp--preset--color--line); color: var(--wp--preset--color--muted); }
 .zk-light .zk-chips span:hover { border-color: var(--wp--preset--color--ink); color: var(--wp--preset--color--ink); }
 

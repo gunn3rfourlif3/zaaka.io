@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ZAAKA_VERSION', '1.3.0' );
+define( 'ZAAKA_VERSION', '1.4.0' );
 
 /**
  * Theme supports.
