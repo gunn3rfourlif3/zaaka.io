@@ -4,7 +4,7 @@ The Zaaka website: a WordPress block theme, the brand assets it is built from,
 and the portfolio content that seeds it.
 
 ```
-wp-content/themes/zaaka/   The theme — templates, patterns, theme.json, assets
+wp-content/themes/zaaka-studio/   The theme — templates, patterns, theme.json, assets
 brand/                     Logo and favicon source files
 content/                   Portfolio import (WordPress WXR)
 tools/                     Static preview renderer
@@ -22,7 +22,7 @@ tools/                     Static preview renderer
 
 Full detail — design tokens, block styles, project fields, accessibility and
 performance notes — is in the theme's own
-[README](wp-content/themes/zaaka/README.md).
+[README](wp-content/themes/zaaka-studio/README.md).
 
 ## Brand
 

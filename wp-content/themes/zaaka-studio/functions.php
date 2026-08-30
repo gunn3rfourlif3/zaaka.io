@@ -27,8 +27,8 @@ function zaaka_setup() {
 
 	register_nav_menus(
 		array(
-			'primary' => __( 'Primary', 'zaaka' ),
-			'footer'  => __( 'Footer', 'zaaka' ),
+			'primary' => __( 'Primary', 'zaaka-studio' ),
+			'footer'  => __( 'Footer', 'zaaka-studio' ),
 		)
 	);
 }
@@ -75,12 +75,12 @@ function zaaka_register_project() {
 		'project',
 		array(
 			'labels'        => array(
-				'name'               => __( 'Projects', 'zaaka' ),
-				'singular_name'      => __( 'Project', 'zaaka' ),
-				'add_new_item'       => __( 'Add project', 'zaaka' ),
-				'edit_item'          => __( 'Edit project', 'zaaka' ),
-				'all_items'          => __( 'All projects', 'zaaka' ),
-				'menu_name'          => __( 'Projects', 'zaaka' ),
+				'name'               => __( 'Projects', 'zaaka-studio' ),
+				'singular_name'      => __( 'Project', 'zaaka-studio' ),
+				'add_new_item'       => __( 'Add project', 'zaaka-studio' ),
+				'edit_item'          => __( 'Edit project', 'zaaka-studio' ),
+				'all_items'          => __( 'All projects', 'zaaka-studio' ),
+				'menu_name'          => __( 'Projects', 'zaaka-studio' ),
 			),
 			'public'        => true,
 			'has_archive'   => 'work',
@@ -100,8 +100,8 @@ function zaaka_register_project() {
 		array( 'project' ),
 		array(
 			'labels'            => array(
-				'name'          => __( 'Disciplines', 'zaaka' ),
-				'singular_name' => __( 'Discipline', 'zaaka' ),
+				'name'          => __( 'Disciplines', 'zaaka-studio' ),
+				'singular_name' => __( 'Discipline', 'zaaka-studio' ),
 			),
 			'public'            => true,
 			'hierarchical'      => true,
@@ -116,8 +116,8 @@ function zaaka_register_project() {
 		array( 'project' ),
 		array(
 			'labels'            => array(
-				'name'          => __( 'Sectors', 'zaaka' ),
-				'singular_name' => __( 'Sector', 'zaaka' ),
+				'name'          => __( 'Sectors', 'zaaka-studio' ),
+				'singular_name' => __( 'Sector', 'zaaka-studio' ),
 			),
 			'public'            => true,
 			'hierarchical'      => true,
@@ -135,13 +135,13 @@ add_action( 'init', 'zaaka_register_project' );
  */
 function zaaka_register_project_meta() {
 	$fields = array(
-		'zaaka_client'   => __( 'Client', 'zaaka' ),
-		'zaaka_role'     => __( 'Our role', 'zaaka' ),
-		'zaaka_year'     => __( 'Year', 'zaaka' ),
-		'zaaka_stack'    => __( 'Stack', 'zaaka' ),
-		'zaaka_url'      => __( 'Live URL', 'zaaka' ),
-		'zaaka_outcome'  => __( 'Headline outcome', 'zaaka' ),
-		'zaaka_status'   => __( 'Status', 'zaaka' ),
+		'zaaka_client'   => __( 'Client', 'zaaka-studio' ),
+		'zaaka_role'     => __( 'Our role', 'zaaka-studio' ),
+		'zaaka_year'     => __( 'Year', 'zaaka-studio' ),
+		'zaaka_stack'    => __( 'Stack', 'zaaka-studio' ),
+		'zaaka_url'      => __( 'Live URL', 'zaaka-studio' ),
+		'zaaka_outcome'  => __( 'Headline outcome', 'zaaka-studio' ),
+		'zaaka_status'   => __( 'Status', 'zaaka-studio' ),
 	);
 
 	foreach ( $fields as $key => $label ) {
@@ -232,7 +232,7 @@ add_action( 'wp_head', 'zaaka_favicons', 5 );
 function zaaka_pattern_categories() {
 	register_block_pattern_category(
 		'zaaka',
-		array( 'label' => __( 'Zaaka', 'zaaka' ) )
+		array( 'label' => __( 'Zaaka', 'zaaka-studio' ) )
 	);
 }
 add_action( 'init', 'zaaka_pattern_categories' );
@@ -246,49 +246,49 @@ function zaaka_block_styles() {
 		'core/group',
 		array(
 			'name'  => 'card',
-			'label' => __( 'Card', 'zaaka' ),
+			'label' => __( 'Card', 'zaaka-studio' ),
 		)
 	);
 	register_block_style(
 		'core/group',
 		array(
 			'name'  => 'rule-top',
-			'label' => __( 'Rule above', 'zaaka' ),
+			'label' => __( 'Rule above', 'zaaka-studio' ),
 		)
 	);
 	register_block_style(
 		'core/group',
 		array(
 			'name'  => 'panel',
-			'label' => __( 'Panel (dark)', 'zaaka' ),
+			'label' => __( 'Panel (dark)', 'zaaka-studio' ),
 		)
 	);
 	register_block_style(
 		'core/button',
 		array(
 			'name'  => 'ghost',
-			'label' => __( 'Ghost', 'zaaka' ),
+			'label' => __( 'Ghost', 'zaaka-studio' ),
 		)
 	);
 	register_block_style(
 		'core/list',
 		array(
 			'name'  => 'ticks',
-			'label' => __( 'Ticks', 'zaaka' ),
+			'label' => __( 'Ticks', 'zaaka-studio' ),
 		)
 	);
 	register_block_style(
 		'core/paragraph',
 		array(
 			'name'  => 'eyebrow',
-			'label' => __( 'Eyebrow', 'zaaka' ),
+			'label' => __( 'Eyebrow', 'zaaka-studio' ),
 		)
 	);
 	register_block_style(
 		'core/heading',
 		array(
 			'name'  => 'measure',
-			'label' => __( 'Narrow measure', 'zaaka' ),
+			'label' => __( 'Narrow measure', 'zaaka-studio' ),
 		)
 	);
 }
@@ -347,6 +347,6 @@ add_action( 'wp_head', 'zaaka_schema', 20 );
  */
 function zaaka_skip_link() {
 	echo '<a class="zaaka-skip-link screen-reader-text" href="#wp--skip-link--target">' .
-		esc_html__( 'Skip to content', 'zaaka' ) . '</a>';
+		esc_html__( 'Skip to content', 'zaaka-studio' ) . '</a>';
 }
 add_action( 'wp_body_open', 'zaaka_skip_link', 1 );

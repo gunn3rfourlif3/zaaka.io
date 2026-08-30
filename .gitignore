@@ -12,7 +12,7 @@
 /wp-content/*
 !/wp-content/themes/
 /wp-content/themes/*
-!/wp-content/themes/zaaka/
+!/wp-content/themes/zaaka-studio/
 
 # Local + build noise
 node_modules/
