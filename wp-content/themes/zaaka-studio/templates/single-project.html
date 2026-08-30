@@ -49,11 +49,12 @@
 <!-- /wp:separator -->
 
 <!-- wp:heading {"level":2,"fontSize":"xl"} --><h2 class="wp-block-heading has-xl-font-size">More work</h2><!-- /wp:heading -->
-<!-- wp:query {"queryId":11,"query":{"perPage":2,"pages":1,"offset":0,"postType":"project","exclude":[],"inherit":false},"align":"wide","layout":{"type":"default"}} -->
-<div class="wp-block-query alignwide">
-<!-- wp:post-template {"layout":{"type":"grid","minimumColumnWidth":"18rem"},"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|30","left":"var:preset|spacing|40"}}}} -->
-<!-- wp:post-featured-image {"isLink":true,"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|10"}}}} /-->
-<!-- wp:post-title {"isLink":true,"fontSize":"lg"} /-->
+<!-- wp:query {"queryId":11,"query":{"perPage":2,"pages":1,"offset":0,"postType":"project","exclude":[],"inherit":false},"align":"wide","className":"zk-work","style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}},"layout":{"type":"default"}} -->
+<div class="wp-block-query alignwide zk-work" style="margin-top:var(--wp--preset--spacing--30)">
+<!-- wp:post-template {"layout":{"type":"default"}} -->
+<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"16/10"} /-->
+<!-- wp:post-terms {"term":"discipline","className":"zk-meta","fontSize":"xs"} /-->
+<!-- wp:post-title {"isLink":true,"fontSize":"xl"} /-->
 <!-- /wp:post-template -->
 </div>
 <!-- /wp:query -->

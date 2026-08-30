@@ -313,20 +313,148 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 
 /* ----------------------------------------------------------- work cards -- */
 
-.zk-work .wp-block-post-template > li,
-.zk-work-card { position: relative; }
+/* Each project is one editorial card: a fixed-ratio image, a quiet meta line,
+   the title, a measured excerpt, and a single explicit affordance. The ratio
+   is enforced so a mixed-size media library cannot make the row ragged, and
+   the whole card shares one hover state so it reads as a single target. */
+
+.zk-work .wp-block-post-template {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(27rem, 100%), 1fr));
+	column-gap: var(--wp--preset--spacing--40);
+	row-gap: var(--wp--preset--spacing--60);
+	margin: 0; padding: 0; list-style: none;
+}
+.zk-work .wp-block-post-template > li {
+	position: relative;
+	display: flex; flex-direction: column; align-items: flex-start;
+	margin: 0;
+}
 
 .zk-work .wp-block-post-featured-image {
-	overflow: hidden; border-radius: 12px; margin-bottom: 1rem;
+	width: 100%; margin: 0 0 1.4rem;
+	overflow: hidden; border-radius: 14px;
 	border: 1px solid var(--wp--preset--color--line);
+	background: var(--wp--preset--color--chalk);
+	transition: transform .5s var(--zk-ease-out), box-shadow .5s var(--zk-ease-out),
+	            border-color .5s;
 }
+.zk-work .wp-block-post-featured-image a,
+.zk-work .wp-block-post-featured-image img { display: block; width: 100%; }
 .zk-work .wp-block-post-featured-image img {
-	aspect-ratio: 16 / 10; object-fit: cover; width: 100%;
-	transition: transform .7s var(--zk-ease-out), filter .5s;
+	aspect-ratio: 16 / 10; object-fit: cover;
+	transition: transform .8s var(--zk-ease-out);
 }
-.zk-work li:hover .wp-block-post-featured-image img { transform: scale(1.045); }
+.zk-work li:hover .wp-block-post-featured-image {
+	transform: translateY(-4px);
+	border-color: var(--wp--preset--color--muted);
+	box-shadow: var(--wp--preset--shadow--lift);
+}
+.zk-work li:hover .wp-block-post-featured-image img { transform: scale(1.04); }
+.zk-dark .wp-block-post-featured-image,
+.zk-work.zk-dark .wp-block-post-featured-image {
+	border-color: var(--wp--preset--color--hairline);
+	background: var(--wp--preset--color--surface);
+}
+
+/* Meta line. Core renders taxonomy terms as links; underlined small caps read
+   as clutter directly above a large title, so the underline is earned on hover. */
+.zk-work .wp-block-post-terms {
+	margin: 0 0 .7rem;
+	color: var(--wp--preset--color--muted);
+}
+.zk-work .wp-block-post-terms a { text-decoration: none; color: inherit; }
+.zk-work .wp-block-post-terms a:hover { color: var(--wp--preset--color--moss); }
+.zk-work .wp-block-post-terms .wp-block-post-terms__separator { opacity: .45; }
+
+.zk-work .wp-block-post-title { margin: 0 0 .6rem; }
 .zk-work .wp-block-post-title a { text-decoration: none; }
-.zk-work .wp-block-post-title a:hover { color: var(--wp--preset--color--moss); }
+.zk-work li:hover .wp-block-post-title a { color: var(--wp--preset--color--moss); }
+
+.zk-work .wp-block-post-excerpt { margin: 0; }
+.zk-work .wp-block-post-excerpt__excerpt {
+	display: block; max-width: 46ch;
+	color: var(--wp--preset--color--muted);
+	margin-bottom: 1.1rem;
+}
+.zk-dark .wp-block-post-excerpt__excerpt { color: var(--wp--preset--color--mist); }
+
+/* The single affordance per card. The arrow carries the motion so the label
+   itself stays still and legible. */
+.zk-work .wp-block-post-excerpt__more-link {
+	display: inline-flex; align-items: center; gap: .5rem;
+	font-size: var(--wp--preset--font-size--xs);
+	letter-spacing: .12em; text-transform: uppercase; font-weight: 700;
+	text-decoration: none; color: var(--wp--preset--color--ink);
+	padding-bottom: .35rem;
+	border-bottom: 1px solid var(--wp--preset--color--line);
+	transition: color .3s, border-color .3s;
+}
+.zk-work .wp-block-post-excerpt__more-link::after {
+	content: "→"; font-size: 1.05em; line-height: 1;
+	transition: transform .35s var(--zk-ease-out);
+}
+.zk-work li:hover .wp-block-post-excerpt__more-link,
+.zk-work .wp-block-post-excerpt__more-link:focus-visible {
+	color: var(--wp--preset--color--moss);
+	border-bottom-color: var(--wp--preset--color--moss);
+}
+.zk-work li:hover .wp-block-post-excerpt__more-link::after { transform: translateX(5px); }
+.zk-dark .wp-block-post-excerpt__more-link {
+	color: var(--wp--preset--color--paper);
+	border-bottom-color: var(--wp--preset--color--hairline);
+}
+.zk-dark .zk-work li:hover .wp-block-post-excerpt__more-link,
+.zk-work.zk-dark li:hover .wp-block-post-excerpt__more-link {
+	color: var(--wp--preset--color--volt);
+	border-bottom-color: var(--wp--preset--color--volt);
+}
+
+/* The card body fills the remaining height so every "View case study" lands on
+   one line across the row, however long the individual excerpts run. */
+.zk-work .wp-block-post-excerpt {
+	width: 100%; flex: 1;
+	display: flex; flex-direction: column; align-items: flex-start;
+}
+.zk-work .wp-block-post-excerpt__more-text { margin: auto 0 0; }
+/* Doubled class: WordPress's constrained-layout rule sets `margin-inline: auto`
+   on children at the same specificity and prints later, which would centre the
+   section header instead of leaving it on the left edge. */
+.zk-work__title.zk-work__title {
+	flex: 1 1 auto; max-width: 42ch;
+	margin-left: 0; margin-right: auto;
+}
+.zk-work__title > * { margin-left: 0; margin-right: auto; }
+
+/* Section header: title left, archive link right, sharing one baseline. */
+.zk-work__head { margin-bottom: var(--wp--preset--spacing--50); }
+.zk-work__head .wp-block-heading { margin: 0; }
+.zk-work__all a {
+	text-decoration: none; font-weight: 700;
+	font-size: var(--wp--preset--font-size--xs);
+	letter-spacing: .12em; text-transform: uppercase;
+	border-bottom: 1px solid var(--wp--preset--color--line);
+	padding-bottom: .35rem; transition: color .3s, border-color .3s;
+}
+.zk-work__all a:hover {
+	color: var(--wp--preset--color--moss);
+	border-bottom-color: var(--wp--preset--color--moss);
+}
+
+@media (max-width: 781px) {
+	.zk-work .wp-block-post-template { row-gap: var(--wp--preset--spacing--50); }
+}
+
+/* ------------------------------------------------------- narrow screens -- */
+
+/* WordPress generates `repeat(auto-fill, minmax(<minimumColumnWidth>, 1fr))`
+   for grid layouts. `minmax()` never goes below its floor, so a 23rem column
+   overflows a 390px viewport instead of reflowing — measured at 368px wide
+   inside 278px of available width. The class is doubled to out-specify the
+   generated `.wp-container-core-*-is-layout-*` rule without !important. */
+@media (max-width: 600px) {
+	.is-layout-grid.is-layout-grid { grid-template-columns: 1fr; }
+}
 
 /* --------------------------------------------------------- sector chips -- */
 
