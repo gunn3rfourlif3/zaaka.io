@@ -744,6 +744,16 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 
 /* -------------------------------------------------------------- footer --- */
 
+/* Footer link lists are navigation, not prose: markers and the default list
+   indent read as an unfinished list rather than a menu. */
+.zk-footer .wp-block-list {
+	list-style: none;
+	margin: 0; padding: 0;
+}
+.zk-footer .wp-block-list li { margin: 0 0 .55rem; }
+.zk-footer .wp-block-list li:last-child { margin-bottom: 0; }
+.zk-footer .zk-meta { margin-bottom: 1.1rem; }
+
 .zk-footer a { text-decoration: none; color: var(--wp--preset--color--mist); }
 .zk-footer a:hover { color: var(--wp--preset--color--volt); }
 
