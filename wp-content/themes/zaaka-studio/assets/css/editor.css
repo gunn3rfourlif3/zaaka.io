@@ -16,7 +16,7 @@
 html { scroll-behavior: smooth; }
 body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
-.zk-measure { max-width: var(--zk-measure); margin-left: 0; margin-right: auto; }
+.zk-measure.zk-measure { max-width: var(--zk-measure); margin-left: 0; margin-right: auto; }
 .zk-center { margin-left: auto; margin-right: auto; }
 
 /* ------------------------------------------------------------- skip link -- */
@@ -45,7 +45,7 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 /* ---------------------------------------------------------- block styles -- */
 
 .is-style-eyebrow {
-	display: inline-flex; align-items: center; gap: .55rem;
+	display: flex; align-items: center; justify-content: flex-start; gap: .55rem;
 	font-size: var(--wp--preset--font-size--xs);
 	font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
 	color: var(--wp--preset--color--muted);
@@ -183,7 +183,7 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 .zk-hero h1 { max-width: 16ch; }
 
 .zk-scroll-cue {
-	display: inline-flex; align-items: center; gap: .6rem;
+	display: flex; align-items: center; justify-content: flex-start; gap: .6rem;
 	font-size: var(--wp--preset--font-size--xs); letter-spacing: .14em;
 	text-transform: uppercase; color: var(--wp--preset--color--mist);
 }

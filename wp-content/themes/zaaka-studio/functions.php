@@ -56,14 +56,16 @@ function zaaka_assets() {
 add_action( 'wp_enqueue_scripts', 'zaaka_assets' );
 
 /**
- * Remove the global inline SVG duotone filters and classic theme styles that
- * WordPress prints on every request. Small, but it is free bytes on LCP.
+ * Drop the inline SVG duotone filters WordPress prints on every request. Small,
+ * but free bytes.
+ *
+ * Nothing else is dequeued here: the global stylesheet generated from theme.json
+ * carries every colour, font-size and spacing custom property the theme depends
+ * on, and removing it strips the design system.
  */
 function zaaka_trim_head() {
 	remove_action( 'wp_body_open', 'wp_global_styles_render_svg_filters' );
 	remove_action( 'in_admin_header', 'wp_global_styles_render_svg_filters' );
-	wp_dequeue_style( 'classic-theme-styles' );
-	wp_dequeue_style( 'global-styles-css' );
 }
 add_action( 'wp_enqueue_scripts', 'zaaka_trim_head', 20 );
 
