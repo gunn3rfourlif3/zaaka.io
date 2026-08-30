@@ -145,16 +145,56 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 	border-bottom: 1px solid rgba(255, 255, 255, .09);
 }
 .zk-header .wp-block-site-title a { color: var(--wp--preset--color--paper); text-decoration: none; }
+/* Core's navigation stylesheet ships
+   `.wp-block-navigation .wp-block-navigation-item__content.wp-block-navigation-item__content
+    { color: inherit }`
+   — the class is deliberately doubled, giving it specificity (0,3,0), which
+   beats any descendant rule written against `a`. Left alone it makes every
+   link take the inherited root text colour (ink) on a void header: 1.08:1,
+   effectively invisible. So the colour is set on the navigation container,
+   which `inherit` then resolves to, AND on the item content at matching
+   specificity. Belt and braces, because core has changed this selector before. */
+.zk-header .wp-block-navigation,
+.zk-header .wp-block-navigation .wp-block-navigation-item__content.wp-block-navigation-item__content {
+	color: var(--wp--preset--color--mist);
+}
 .zk-header .wp-block-navigation a {
-	color: var(--wp--preset--color--mist); text-decoration: none;
+	text-decoration: none;
 	padding-block: .3rem; position: relative;
 }
 .zk-header .wp-block-navigation a::after {
 	content: ""; position: absolute; left: 0; right: 100%; bottom: 0; height: 2px;
 	background: var(--wp--preset--color--volt); transition: right .3s var(--zk-ease-out);
 }
-.zk-header .wp-block-navigation a:hover { color: var(--wp--preset--color--paper); }
-.zk-header .wp-block-navigation a:hover::after { right: 0; }
+.zk-header .wp-block-navigation .wp-block-navigation-item__content.wp-block-navigation-item__content:hover,
+.zk-header .wp-block-navigation .wp-block-navigation-item__content.wp-block-navigation-item__content:focus-visible {
+	color: var(--wp--preset--color--paper);
+}
+.zk-header .wp-block-navigation a:hover::after,
+.zk-header .wp-block-navigation a:focus-visible::after { right: 0; }
+
+/* The hamburger and close buttons inherit currentColor for their fill, which
+   would be ink on a dark header for the same reason as above. */
+.zk-header .wp-block-navigation__responsive-container-open,
+.zk-header .wp-block-navigation__responsive-container-close {
+	color: var(--wp--preset--color--paper);
+}
+
+/* The mobile overlay: core gives the open container `background-color: inherit`,
+   which on this header resolves to transparent over the page beneath. Set the
+   ground and the text explicitly so the overlay is never dark-on-dark. */
+.zk-header .wp-block-navigation__responsive-container.is-menu-open {
+	background: var(--wp--preset--color--void);
+	padding: var(--wp--preset--spacing--40) var(--wp--preset--spacing--30);
+}
+.zk-header .wp-block-navigation__responsive-container.is-menu-open,
+.zk-header .wp-block-navigation__responsive-container.is-menu-open
+	.wp-block-navigation-item__content.wp-block-navigation-item__content {
+	color: var(--wp--preset--color--paper);
+}
+.zk-header .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__container {
+	gap: 1.1rem;
+}
 
 /* ----------------------------------------------------------------- hero -- */
 
