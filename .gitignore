@@ -1,0 +1,26 @@
+# WordPress core — managed by the installer, not by this repo
+/wp-admin/
+/wp-includes/
+/index.php
+/wp-*.php
+/xmlrpc.php
+/license.txt
+/readme.html
+/.htaccess
+
+# Everything in wp-content except this theme
+/wp-content/*
+!/wp-content/themes/
+/wp-content/themes/*
+!/wp-content/themes/zaaka/
+
+# Local + build noise
+node_modules/
+vendor/
+*.log
+.env
+.env.*
+.DS_Store
+Thumbs.db
+/tools/__pycache__/
+/tools/out/

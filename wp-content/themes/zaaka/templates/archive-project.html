@@ -1,0 +1,27 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+<!-- wp:group {"tagName":"main","className":"zk-work","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
+<main class="wp-block-group zk-work" style="padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--60)">
+
+<!-- wp:paragraph {"className":"is-style-eyebrow"} --><p class="is-style-eyebrow">Selected work</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":1,"fontSize":"3xl"} --><h1 class="wp-block-heading has-3xl-font-size">Things we have actually shipped.</h1><!-- /wp:heading -->
+<!-- wp:paragraph {"className":"zk-measure","fontSize":"lg","textColor":"muted","style":{"spacing":{"margin":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|50"}}}} -->
+<p class="zk-measure has-muted-color has-text-color has-lg-font-size" style="margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--50)">Each entry states exactly what we did on it. Where we contributed to something rather than built it, we say so.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:query {"queryId":10,"query":{"perPage":24,"pages":0,"offset":0,"postType":"project","inherit":true},"align":"wide","layout":{"type":"default"}} -->
+<div class="wp-block-query alignwide">
+<!-- wp:post-template {"layout":{"type":"grid","minimumColumnWidth":"20rem"},"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|50","left":"var:preset|spacing|40"}}}} -->
+<!-- wp:post-featured-image {"isLink":true,"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|20"}}}} /-->
+<!-- wp:post-terms {"term":"discipline","className":"zk-meta","fontSize":"xs"} /-->
+<!-- wp:post-title {"isLink":true,"fontSize":"xl"} /-->
+<!-- wp:post-excerpt {"moreText":"Read the case study","excerptLength":30} /-->
+<!-- /wp:post-template -->
+<!-- wp:query-no-results -->
+<!-- wp:paragraph --><p>No projects published yet.</p><!-- /wp:paragraph -->
+<!-- /wp:query-no-results -->
+</div>
+<!-- /wp:query -->
+
+</main>
+<!-- /wp:group -->
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
