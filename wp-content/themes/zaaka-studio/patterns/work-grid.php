@@ -14,7 +14,7 @@
 <!-- wp:group {"className":"zk-work__title","layout":{"type":"default"}} -->
 <div class="wp-block-group zk-work__title">
 <!-- wp:paragraph {"className":"is-style-eyebrow"} --><p class="is-style-eyebrow">Case studies</p><!-- /wp:paragraph -->
-<!-- wp:heading {"level":2,"fontSize":"xxxl"} --><h2 class="wp-block-heading has-xxxl-font-size">Selected work</h2><!-- /wp:heading -->
+<!-- wp:heading {"level":2,"fontSize":"xxxl"} --><h2 class="wp-block-heading has-xxxl-font-size">Recent work</h2><!-- /wp:heading -->
 </div>
 <!-- /wp:group -->
 <!-- wp:paragraph {"className":"zk-work__all"} --><p class="zk-work__all"><a href="/work/">All projects</a></p><!-- /wp:paragraph -->
