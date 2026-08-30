@@ -94,7 +94,7 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 	transform: rotate(-45deg);
 }
 
-.is-style-measure { max-width: 18ch; }
+.is-style-measure.is-style-measure { max-width: 18ch; margin-left: 0; margin-right: auto; }
 
 /* Highlighted words inside a heading. */
 .zk-mark {
@@ -231,7 +231,7 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 
 .zk-stat {
 	font-family: var(--wp--preset--font-family--display);
-	font-size: var(--wp--preset--font-size--3xl); font-weight: 800;
+	font-size: var(--wp--preset--font-size--xxxl); font-weight: 800;
 	line-height: 1; letter-spacing: -.045em;
 }
 

@@ -14,8 +14,8 @@
 <!-- wp:column {"verticalAlignment":"center","width":"48%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:48%">
 <!-- wp:paragraph {"className":"is-style-eyebrow zk-reveal"} --><p class="is-style-eyebrow zk-reveal">Case study</p><!-- /wp:paragraph -->
-<!-- wp:heading {"level":2,"className":"zk-reveal","textColor":"paper","fontSize":"3xl"} -->
-<h2 class="wp-block-heading zk-reveal has-paper-color has-text-color has-3xl-font-size">Locare</h2>
+<!-- wp:heading {"level":2,"className":"zk-reveal","textColor":"paper","fontSize":"xxxl"} -->
+<h2 class="wp-block-heading zk-reveal has-paper-color has-text-color has-xxxl-font-size">Locare</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph {"className":"zk-reveal","textColor":"mist","fontSize":"lg","style":{"spacing":{"margin":{"top":"var:preset|spacing|20"}}}} -->
 <p class="zk-reveal has-mist-color has-text-color has-lg-font-size" style="margin-top:var(--wp--preset--spacing--20)">A property management platform that agencies run their entire business on — leasing, rent collection, trust accounting and maintenance in one system.</p>

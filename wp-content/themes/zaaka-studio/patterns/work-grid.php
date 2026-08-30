@@ -11,7 +11,7 @@
 
 <!-- wp:group {"align":"wide","className":"zk-reveal","layout":{"type":"flex","justifyContent":"space-between","verticalAlignment":"bottom","flexWrap":"wrap"}} -->
 <div class="wp-block-group alignwide zk-reveal">
-<!-- wp:heading {"level":2,"fontSize":"3xl"} --><h2 class="wp-block-heading has-3xl-font-size">Selected work</h2><!-- /wp:heading -->
+<!-- wp:heading {"level":2,"fontSize":"xxxl"} --><h2 class="wp-block-heading has-xxxl-font-size">Selected work</h2><!-- /wp:heading -->
 <!-- wp:paragraph {"fontSize":"sm"} --><p class="has-sm-font-size"><a href="/work/">All projects</a></p><!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->

@@ -14,7 +14,7 @@
 <!-- wp:group {"layout":{"type":"constrained"}} -->
 <div class="wp-block-group">
 <!-- wp:paragraph {"className":"is-style-eyebrow"} --><p class="is-style-eyebrow">Capabilities</p><!-- /wp:paragraph -->
-<!-- wp:heading {"level":2,"textColor":"paper","fontSize":"3xl"} --><h2 class="wp-block-heading has-paper-color has-text-color has-3xl-font-size">What we make</h2><!-- /wp:heading -->
+<!-- wp:heading {"level":2,"textColor":"paper","fontSize":"xxxl"} --><h2 class="wp-block-heading has-paper-color has-text-color has-xxxl-font-size">What we make</h2><!-- /wp:heading -->
 </div>
 <!-- /wp:group -->
 <!-- wp:paragraph {"className":"zk-measure","textColor":"mist","fontSize":"md","style":{"typography":{"lineHeight":"1.55"}}} -->

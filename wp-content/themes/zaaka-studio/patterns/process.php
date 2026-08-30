@@ -10,8 +10,8 @@
 <div class="wp-block-group alignfull zk-light" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)">
 
 <!-- wp:paragraph {"className":"is-style-eyebrow zk-reveal"} --><p class="is-style-eyebrow zk-reveal">How we work</p><!-- /wp:paragraph -->
-<!-- wp:heading {"level":2,"align":"wide","className":"zk-reveal is-style-measure","fontSize":"3xl"} -->
-<h2 class="wp-block-heading alignwide zk-reveal is-style-measure has-3xl-font-size">Small team. Short loops. No hand-offs.</h2>
+<!-- wp:heading {"level":2,"align":"wide","className":"zk-reveal is-style-measure","fontSize":"xxxl"} -->
+<h2 class="wp-block-heading alignwide zk-reveal is-style-measure has-xxxl-font-size">Small team. Short loops. No hand-offs.</h2>
 <!-- /wp:heading -->
 
 <!-- wp:group {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|50"},"blockGap":{"top":"var:preset|spacing|30","left":"var:preset|spacing|40"}}},"layout":{"type":"grid","minimumColumnWidth":"14rem"}} -->

@@ -14,7 +14,7 @@
 <!-- wp:column {"width":"42%"} -->
 <div class="wp-block-column" style="flex-basis:42%">
 <!-- wp:paragraph {"className":"is-style-eyebrow zk-reveal"} --><p class="is-style-eyebrow zk-reveal">Who we work with</p><!-- /wp:paragraph -->
-<!-- wp:heading {"level":2,"className":"zk-reveal","fontSize":"3xl"} --><h2 class="wp-block-heading zk-reveal has-3xl-font-size">Different industries, same problem.</h2><!-- /wp:heading -->
+<!-- wp:heading {"level":2,"className":"zk-reveal","fontSize":"xxxl"} --><h2 class="wp-block-heading zk-reveal has-xxxl-font-size">Different industries, same problem.</h2><!-- /wp:heading -->
 <!-- wp:paragraph {"className":"zk-reveal","textColor":"muted","style":{"spacing":{"margin":{"top":"var:preset|spacing|20"}}}} -->
 <p class="zk-reveal has-muted-color has-text-color" style="margin-top:var(--wp--preset--spacing--20)">A business outgrows the tools holding it together — a spreadsheet doing a system's job, a site that no longer matches the company behind it. We are usually called at that point.</p>
 <!-- /wp:paragraph -->

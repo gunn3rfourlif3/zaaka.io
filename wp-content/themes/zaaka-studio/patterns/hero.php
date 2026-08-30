@@ -13,8 +13,8 @@
 <p class="is-style-eyebrow zk-reveal">Design &amp; engineering studio</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":1,"align":"wide","className":"zk-reveal","textColor":"paper","fontSize":"5xl"} -->
-<h1 class="wp-block-heading alignwide zk-reveal has-paper-color has-text-color has-5xl-font-size">We build the <span class="zk-mark">product</span>. And the <span class="zk-mark">site</span> that sells it.</h1>
+<!-- wp:heading {"level":1,"align":"wide","className":"zk-reveal","textColor":"paper","fontSize":"mega"} -->
+<h1 class="wp-block-heading alignwide zk-reveal has-paper-color has-text-color has-mega-font-size">We build the <span class="zk-mark">product</span>. And the <span class="zk-mark">site</span> that sells it.</h1>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"zk-measure zk-reveal","textColor":"mist","fontSize":"lg","style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}}} -->
