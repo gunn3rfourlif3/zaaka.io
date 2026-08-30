@@ -354,6 +354,20 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 .zk-footer a { text-decoration: none; color: var(--wp--preset--color--mist); }
 .zk-footer a:hover { color: var(--wp--preset--color--volt); }
 
+/* Inline links in the footer meta line sit inside running text, so grouping
+   and position cannot signal that they are links. They carry an underline. */
+.zk-footer .zk-meta a {
+	text-decoration: underline;
+	text-underline-offset: .28em;
+	text-decoration-thickness: 1px;
+	text-decoration-color: rgba(167, 176, 192, .55);
+}
+.zk-footer .zk-meta a:hover,
+.zk-footer .zk-meta a:focus-visible {
+	color: var(--wp--preset--color--volt);
+	text-decoration-color: currentColor;
+}
+
 /* -------------------------------------------------------------- motion --- */
 
 @media (prefers-reduced-motion: reduce) {

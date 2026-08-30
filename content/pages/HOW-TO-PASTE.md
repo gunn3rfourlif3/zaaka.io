@@ -1,8 +1,9 @@
 # Page content
 
-Five files of WordPress block markup, one per page. Paste each into the page
-that already exists — do not create new pages, because your navigation menu is
-bound to the existing page IDs and new ones would break it.
+Six files of WordPress block markup, one per page. Paste each into the page
+that already exists where it does; Accessibility and Privacy have to be created.
+The menu is now built from relative URLs rather than page IDs, so creating pages
+no longer risks breaking it — but the slugs must match exactly.
 
 ## For each page
 
@@ -22,19 +23,31 @@ bound to the existing page IDs and new ones would break it.
 | `page-approach.html` | Approach |
 | `page-about.html` | About |
 | `page-contact.html` | Contact |
-| `page-accessibility.html` | Accessibility — you'll need to create this one |
+| `page-accessibility.html` | Accessibility — create it, slug `accessibility` |
+| `page-privacy.html` | Privacy — create it, slug `privacy` |
 
-## Two pages the footer links to that don't exist yet
+## The two footer pages
 
-The footer links to `/privacy/` and `/accessibility/`. Both currently 404.
+The footer links to `/privacy/` and `/accessibility/`. Both 404 until you create
+them. The slugs must be exactly `privacy` and `accessibility`.
 
-- **Accessibility** — content supplied. Create the page with the slug
-  `accessibility` and paste it in. It is written from what the theme actually
-  does, so it is accurate as long as the theme is not heavily modified.
-- **Privacy** — not supplied. A privacy policy has to describe what *your* site
-  collects: analytics, form submissions, cookies, hosting location, retention.
-  Getting that wrong is worse than not having one. Generate it once you know
-  what you are running, or remove the footer link until you do.
+- **Accessibility** — written from what the theme actually does, so it stays
+  accurate as long as the theme is not heavily modified.
+- **Privacy** — written for the site as it currently is: no analytics, no
+  tracking, no cookies for visitors, contact by email. Three claims in it are
+  only true while that remains the case. **Re-read it and change it the day you
+  add any of the following:**
+  - an analytics tool of any kind, including a self-hosted one
+  - a hosted contact form (Gravity Forms, Formspree, HubSpot, a Typeform embed)
+  - an embedded video, map or chat widget — each one sets its own cookies
+  - a newsletter signup
+
+  It also names no legal entity and no Information Officer. If Zaaka is a
+  registered company, add the registered name and the Information Officer's
+  name under **Who we are** — POPIA requires a designated Information Officer,
+  and by default that is the head of the organisation. This was written to be
+  accurate and readable, not to be legal advice; if you take on clients whose
+  own compliance depends on yours, have someone qualified read it.
 
 ## Before you publish
 
