@@ -18,7 +18,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"zk-measure zk-reveal","textColor":"mist","fontSize":"lg","style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}}} -->
-<p class="zk-measure zk-reveal has-mist-color has-text-color has-lg-font-size" style="margin-top:var(--wp--preset--spacing--30)">Zaaka is a small studio that takes things from idea to production — software platforms, web apps, and the websites and brands around them. One team, from the first sketch to the thing your customers actually use.</p>
+<p class="zk-measure zk-reveal has-mist-color has-text-color has-lg-font-size" style="margin-top:var(--wp--preset--spacing--30)">Zaaka is a design and engineering studio. We turn ideas into production systems businesses run on, and build the brands around them. One team, from the first sketch to the thing your customers actually use.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons {"className":"zk-reveal","style":{"spacing":{"margin":{"top":"var:preset|spacing|40"},"blockGap":"var:preset|spacing|20"}}} -->
