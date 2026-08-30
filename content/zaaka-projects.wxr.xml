@@ -116,6 +116,12 @@
 </ul><!-- /wp:list -->
 
 <!-- wp:paragraph --><p>Tiered from single-branch agencies to multi-branch operations running several hundred units.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":2} --><h2 class="wp-block-heading">How it is built</h2><!-- /wp:heading -->
+
+<!-- wp:paragraph --><p>The back-office is Next.js 14 on the App Router — rent rolls, payment review and financial reporting. Tenants and landlords get native apps built in React Native through Expo, branded per agency rather than per platform.</p><!-- /wp:paragraph -->
+
+<!-- wp:paragraph --><p>Underneath both sits an <strong>immutable double-entry ledger</strong>. Every invoice, receipt, deposit and owner payout is a posting that cannot be edited after the fact, only reversed by another posting. That is the difference between software that reports on money and software an agency can be audited against.</p><!-- /wp:paragraph -->
 ]]></content:encoded>
 		<excerpt:encoded><![CDATA[A white-label property management platform — leasing, rent collection, trust accounting and maintenance in one system, built for agencies that run on it daily.]]></excerpt:encoded>
 		<wp:post_id>9102</wp:post_id>
@@ -137,7 +143,7 @@
 		<wp:postmeta><wp:meta_key><![CDATA[zaaka_client]]></wp:meta_key><wp:meta_value><![CDATA[Locare (Pty) Ltd]]></wp:meta_value></wp:postmeta>
 		<wp:postmeta><wp:meta_key><![CDATA[zaaka_role]]></wp:meta_key><wp:meta_value><![CDATA[Product, design, engineering and infrastructure]]></wp:meta_value></wp:postmeta>
 		<wp:postmeta><wp:meta_key><![CDATA[zaaka_year]]></wp:meta_key><wp:meta_value><![CDATA[2026]]></wp:meta_value></wp:postmeta>
-		<wp:postmeta><wp:meta_key><![CDATA[zaaka_stack]]></wp:meta_key><wp:meta_value><![CDATA[SaaS platform · double-entry ledger · payments · tenant and landlord apps]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_stack]]></wp:meta_key><wp:meta_value><![CDATA[Next.js 14 · React Native (Expo) · immutable double-entry ledger]]></wp:meta_value></wp:postmeta>
 		<wp:postmeta><wp:meta_key><![CDATA[zaaka_url]]></wp:meta_key><wp:meta_value><![CDATA[https://www.locare.co.za]]></wp:meta_value></wp:postmeta>
 		<wp:postmeta><wp:meta_key><![CDATA[zaaka_outcome]]></wp:meta_key><wp:meta_value><![CDATA[The whole rental lifecycle in one auditable system]]></wp:meta_value></wp:postmeta>
 		<wp:postmeta><wp:meta_key><![CDATA[zaaka_status]]></wp:meta_key><wp:meta_value><![CDATA[Live]]></wp:meta_value></wp:postmeta>
