@@ -24,3 +24,13 @@ vendor/
 Thumbs.db
 /tools/__pycache__/
 /tools/out/
+
+# Saved page captures and decoded diagnostics — evidence for a specific bug
+# hunt, kept locally but not part of the project.
+/docs/_diagnostics/
+
+# Built theme archive — regenerate with tools/build-zip.sh
+/zaaka-studio.zip
+
+# Preview harness output
+/tools/preview/out/

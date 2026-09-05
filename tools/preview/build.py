@@ -13,10 +13,18 @@ import json
 import re
 import pathlib
 
-ROOT = pathlib.Path(__file__).resolve().parent.parent
-THEME = ROOT / "wp-content" / "themes" / "zaaka"
-OUT = ROOT / "tools" / "out"
+THEME = pathlib.Path(__file__).resolve().parents[2] / "wp-content" / "themes" / "zaaka-studio"
+OUT = pathlib.Path(__file__).resolve().parent / "out"
 OUT.mkdir(parents=True, exist_ok=True)
+
+# The preview renders offline, so the featured images used by the work cards
+# and the case-study harness are copied in beside the generated HTML.
+_ASSETS = pathlib.Path(__file__).resolve().parents[2] / "brand"
+if _ASSETS.is_dir():
+    import shutil
+    for _img in ("locare-featured.png", "uberfi-featured.png"):
+        if (_ASSETS / _img).exists():
+            shutil.copy2(_ASSETS / _img, OUT / _img)
 
 tj = json.loads((THEME / "theme.json").read_text())
 
@@ -29,7 +37,11 @@ for f in tj["settings"]["typography"]["fontFamilies"]:
 for s in tj["settings"]["typography"]["fontSizes"]:
     fl = s.get("fluid")
     if isinstance(fl, dict):
-        size = f'clamp({fl["min"]}, 0.75rem + 2.2vw, {fl["max"]})'
+        # WordPress core fluid-typography formula: viewport 320px-1600px (20rem-100rem)
+        mn = float(re.sub(r"[a-z]+$", "", fl["min"]))
+        mx = float(re.sub(r"[a-z]+$", "", fl["max"]))
+        slope = round((mx - mn) / 80 * 100, 4)
+        size = f'clamp({fl["min"]}, {mn}rem + ((1vw - 0.2rem) * {slope}), {fl["max"]})'
     else:
         size = s["size"]
     props.append(f'--wp--preset--font-size--{s["slug"]}: {size};')
@@ -61,8 +73,8 @@ img{{max-width:100%;height:auto;display:block}}
 
 h1,h2,h3,h4,h5,h6{{font-family:var(--wp--preset--font-family--display);font-weight:400;
  line-height:1.12;letter-spacing:-.02em;color:var(--wp--preset--color--ink);margin:0 0 .5em}}
-h1{{font-size:var(--wp--preset--font-size--4xl);line-height:1.04}}
-h2{{font-size:var(--wp--preset--font-size--3xl)}}
+h1{{font-size:var(--wp--preset--font-size--huge);line-height:1.04}}
+h2{{font-size:var(--wp--preset--font-size--xxxl)}}
 h3{{font-size:var(--wp--preset--font-size--xl);line-height:1.2}}
 h4{{font-family:var(--wp--preset--font-family--sans);font-size:var(--wp--preset--font-size--sm);
  font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--wp--preset--color--muted)}}
@@ -102,7 +114,8 @@ ul.wp-block-list{{padding-left:1.15rem;margin:0 0 1rem}}
 .zk-header .zk-burger{{display:none;width:24px;height:2px;background:#fff;box-shadow:0 7px 0 #fff,0 -7px 0 #fff}}
 .zk-preview-grid{{display:grid;grid-template-columns:1fr 1fr;gap:var(--wp--preset--spacing--40);margin-top:var(--wp--preset--spacing--40)}}
 .zk-preview-grid h3{{margin:.4rem 0 .4rem}}
-.zk-thumb--uberfi{{background:#0B0E11 center/cover no-repeat url(uberfi-featured.png)!important}}
+.zk-thumb--uberfi{{background:#0B0E11}}
+.zk-thumb--locare{{background:#000}}
 .zk-preview-grid h3 .zk-status{{vertical-align:middle;margin-left:.5rem}}
 .zk-thumb{{aspect-ratio:16/10;background:linear-gradient(135deg,#E9E4DA,#D8D2C6);border:1px solid var(--wp--preset--color--line);margin-bottom:.9rem}}
 """
@@ -156,8 +169,11 @@ def _inject(markup: str) -> str:
         if not rules:
             continue
         _n[0] += 1
-        cls = f'zk-l{_n[0]}'
-        _layout_css.append('.' + cls + '{' + ';'.join(rules) + '}')
+        # Mirror WordPress's own layout classes so theme rules written against
+        # `.is-layout-grid` / `.is-layout-flex` are exercised by the preview.
+        wp_cls = {'grid': 'is-layout-grid', 'flex': 'is-layout-flex'}.get(lay.get('type'), '')
+        cls = f'zk-l{_n[0]}' + (' ' + wp_cls if wp_cls else '')
+        _layout_css.append('.' + cls.split()[0] + '{' + ';'.join(rules) + '}')
         tag_start = m.start(3)
         tag_end = markup.index('>', tag_start)
         tag = markup[tag_start:tag_end]
@@ -195,10 +211,20 @@ body = "".join(strip_blocks((THEME / "patterns" / f"{n}.php").read_text()) for n
 # branch, which is what a fresh install shows. Left as-is deliberately.
 
 SAMPLE = """
-<div class="zk-preview-grid">
- <article><div class="zk-thumb"></div><p class="zk-meta">Product · Platform</p><h3>Locare</h3><p>A white-label property management platform for rental agencies — leasing, trust accounting and maintenance in one system.</p></article>
- <article><div class="zk-thumb zk-thumb--uberfi"></div><p class="zk-meta">Product · Mobile · Engineering</p><h3>Uberfi</h3><p>A profit copilot for rideshare drivers — prices an incoming trip against real running costs and returns a keep-or-reject verdict inside the acceptance window.</p></article>
-</div>
+<ul class="wp-block-post-template is-layout-flow">
+ <li class="wp-block-post">
+  <figure class="wp-block-post-featured-image"><a href="#"><img class="zk-thumb--locare" src="locare-featured.png" alt=""/></a></figure>
+  <div class="zk-meta has-xs-font-size wp-block-post-terms"><a href="#">Platform</a><span class="wp-block-post-terms__separator">, </span><a href="#">Product</a></div>
+  <h3 class="wp-block-post-title has-xxl-font-size"><a href="#">Locare</a></h3>
+  <div class="wp-block-post-excerpt"><p class="wp-block-post-excerpt__excerpt">A white-label property management platform for rental agencies — leasing, rent collection, trust accounting and maintenance in one system, built for agencies that run on it daily. </p><p class="wp-block-post-excerpt__more-text"><a class="wp-block-post-excerpt__more-link" href="#">View case study</a></p></div>
+ </li>
+ <li class="wp-block-post">
+  <figure class="wp-block-post-featured-image"><a href="#"><img class="zk-thumb--uberfi" src="uberfi-featured.png" alt=""/></a></figure>
+  <div class="zk-meta has-xs-font-size wp-block-post-terms"><a href="#">Engineering</a><span class="wp-block-post-terms__separator">, </span><a href="#">Mobile</a><span class="wp-block-post-terms__separator">, </span><a href="#">Product</a></div>
+  <h3 class="wp-block-post-title has-xxl-font-size"><a href="#">Uberfi</a></h3>
+  <div class="wp-block-post-excerpt"><p class="wp-block-post-excerpt__excerpt">A profit copilot for rideshare drivers. Reads an incoming trip request, prices it against the driver's real running costs, and returns a keep-or-reject verdict. </p><p class="wp-block-post-excerpt__more-text"><a class="wp-block-post-excerpt__more-link" href="#">View case study</a></p></div>
+ </li>
+</ul>
 """
 body = re.sub(r'<div class="wp-block-query alignwide"[^>]*>.*?</div>\s*(?=</div>)', SAMPLE, body, flags=re.S, count=1)
 

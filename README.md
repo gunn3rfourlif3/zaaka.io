@@ -4,19 +4,29 @@ The Zaaka website: a WordPress block theme, the brand assets it is built from,
 and the portfolio content that seeds it.
 
 ```
-wp-content/themes/zaaka-studio/   The theme — templates, patterns, theme.json, assets
-brand/                     Logo and favicon source files
-content/                   Portfolio import (WordPress WXR)
-tools/                     Static preview renderer
+PROJECT-INSTRUCTIONS.md          Paste into the Claude project; how to work on this site
+docs/MAINTENANCE.md              Where content lives, how to deploy, what to verify
+docs/GOTCHAS.md                  WordPress traps already paid for. Read before debugging.
+docs/BACKLOG.md                  What is outstanding
+wp-content/themes/zaaka-studio/  The theme — templates, patterns, theme.json, assets
+content/pages/                   Page copy (source of truth; not live until pasted)
+content/                         Portfolio import (WordPress WXR)
+brand/                           Logo and favicon source files
+tools/preview/                   Static render harness
 ```
+
+**Start with [`PROJECT-INSTRUCTIONS.md`](PROJECT-INSTRUCTIONS.md)**, then
+[`docs/MAINTENANCE.md`](docs/MAINTENANCE.md). If something is behaving
+impossibly, [`docs/GOTCHAS.md`](docs/GOTCHAS.md) has probably already seen it.
 
 ## Getting it running
 
-1. Copy `wp-content/themes/zaaka` into a WordPress install (6.5+, PHP 8.0+) and
+1. Copy `wp-content/themes/zaaka-studio` into a WordPress install (6.5+, PHP 8.0+) and
    activate it under **Appearance → Themes**.
 2. **Settings → Permalinks** → *Save* once, so `/work/` resolves.
 3. **Settings → Reading** → set a static homepage. `front-page.html` takes over.
-4. **Appearance → Editor → Navigation** → build the primary menu.
+4. The primary menu ships with the theme as inner blocks of the header — no
+   menu needs building. If the header shows as *Customised*, clear it.
 5. **Tools → Import → WordPress** → `content/zaaka-projects.wxr.xml`, then set
    the featured image on each imported project.
 
