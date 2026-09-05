@@ -9,9 +9,9 @@ all in scope.*
 ## What this project is
 
 Maintaining and improving **zaaka.io**, the site for Zaaka — a design and
-engineering studio in Johannesburg run by Arthur Jones. The site is a shop
+engineering studio in Johannesburg run by Vernon Venter. The site is a shop
 window for winning work, so every change is judged on whether it makes the
-studio more credible to someone deciding whether to hire it.
+studio more credible to someone deciding whether to hire it. Improve SEO.
 
 WordPress 6.8 on PHP 8.2, Namecheap shared hosting (cPanel, `server313`),
 document root `/public_html`. The site runs a custom block theme, **Zaaka
