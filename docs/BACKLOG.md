@@ -28,8 +28,8 @@ State as at theme v1.5.0. Ordered by what blocks the site being finished.
 - [x] **Discovery Sprint page** published at /discovery-sprint/; Contact updated;
       default Sample Page moved to draft.
 
-- [ ] **Set the Calendly link** in Settings → General → Booking link. Until
-      it is set, every "Book an intro call" button lands on /contact/.
+- [x] **Set the Calendly link** — https://calendly.com/hello-zaaka/30min,
+      in Settings → General → Booking link (11 Sep 2026).
 - [ ] **Add real result figures and testimonials** to each project's Case
       study summary box. The slots are built and hidden while empty.
 - [ ] **Decide the Discovery Sprint's small print**: VAT (is R12,500
