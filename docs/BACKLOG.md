@@ -6,13 +6,13 @@ State as at theme v1.5.0. Ordered by what blocks the site being finished.
 
 ## Blocking — the site is not complete without these
 
-- [ ] **Apply the updated About copy.** `content/pages/page-about.html` has the
+- [x] **Apply the updated About copy.** *(Confirmed live, 11 Sep 2026.)* `content/pages/page-about.html` has the
       new lede, the removed *What we have built* section and the restored
       `/work/` link. None of it is live until it is pasted into the page.
-- [ ] **Create the Privacy and Accessibility pages.** Slugs must be exactly
+- [x] **Create the Privacy and Accessibility pages.** *(Live; Calendly added to Privacy, both dated 11 Sep 2026.)* Slugs must be exactly
       `privacy` and `accessibility` — the footer links to both and both
       currently 404. Content is in `content/pages/`.
-- [ ] **Set the site tagline** in Settings → General to the positioning line:
+- [x] **Set the site tagline** *(Done 11 Sep 2026.)* in Settings → General to the positioning line:
       *We turn ideas into production systems businesses run on, and build the
       brands around them.* The Organization schema reads
       `get_bloginfo('description')`, so this is the machine-readable copy of
@@ -23,6 +23,11 @@ State as at theme v1.5.0. Ordered by what blocks the site being finished.
       and every one of them promises a reply within one working day.
 
 ## Content
+
+- [ ] **Upload theme v1.5.0.** Until it is live, ghost buttons on light pages
+      render white-on-white, and /book/ and the case-study summaries do not exist.
+- [x] **Discovery Sprint page** published at /discovery-sprint/; Contact updated;
+      default Sample Page moved to draft.
 
 - [ ] **Set the Calendly link** in Settings → General → Booking link. Until
       it is set, every "Book an intro call" button lands on /contact/.
