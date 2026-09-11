@@ -24,8 +24,7 @@ State as at theme v1.5.0. Ordered by what blocks the site being finished.
 
 ## Content
 
-- [ ] **Upload theme v1.5.0.** Until it is live, ghost buttons on light pages
-      render white-on-white, and /book/ and the case-study summaries do not exist.
+- [x] **Upload theme v1.5.0.** Live 11 Sep 2026; summaries filled on both projects.
 - [x] **Discovery Sprint page** published at /discovery-sprint/; Contact updated;
       default Sample Page moved to draft.
 
