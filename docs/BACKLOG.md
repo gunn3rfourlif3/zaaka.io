@@ -1,6 +1,6 @@
 # Backlog
 
-State as at theme v1.4.3. Ordered by what blocks the site being finished.
+State as at theme v1.5.0. Ordered by what blocks the site being finished.
 
 ---
 
@@ -23,6 +23,13 @@ State as at theme v1.4.3. Ordered by what blocks the site being finished.
       and every one of them promises a reply within one working day.
 
 ## Content
+
+- [ ] **Set the Calendly link** in Settings → General → Booking link. Until
+      it is set, every "Book an intro call" button lands on /contact/.
+- [ ] **Add real result figures and testimonials** to each project's Case
+      study summary box. The slots are built and hidden while empty.
+- [ ] **Decide the Discovery Sprint's small print**: VAT (is R12,500
+      inclusive?), payment terms, and whether the build credit expires.
 
 - [ ] **Point the Contact page at a real form**, or make explicit that email is
       the only route. Note that adding a hosted form changes what the site

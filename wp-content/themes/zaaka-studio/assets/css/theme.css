@@ -580,6 +580,99 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 	.zk-case__title.zk-case__title { max-width: none; }
 }
 
+/* --------------------------------------------------- case-study summary -- */
+
+/* The short version for the person holding the budget: three answers in a
+   row, then any figures. Sits between the featured image and the long read. */
+.zk-summary { margin-bottom: var(--wp--preset--spacing--50); }
+.zk-summary__grid {
+	display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: var(--wp--preset--spacing--30);
+	margin: 0;
+}
+.zk-summary__cell {
+	border-top: 2px solid var(--wp--preset--color--ink);
+	padding-top: 1rem;
+}
+.zk-summary__cell dt { margin: 0 0 .6rem; }
+.zk-summary__cell dd {
+	margin: 0;
+	font-size: var(--wp--preset--font-size--lg);
+	line-height: 1.45; letter-spacing: -.01em;
+	color: var(--wp--preset--color--ink);
+}
+.zk-summary__figures {
+	list-style: none; padding: 0;
+	margin: var(--wp--preset--spacing--40) 0 0;
+	display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+	gap: var(--wp--preset--spacing--30);
+}
+.zk-summary__figures li {
+	background: var(--wp--preset--color--chalk);
+	border: 1px solid var(--wp--preset--color--line);
+	border-radius: 14px; padding: 1.2rem 1.3rem;
+}
+.zk-summary__figure {
+	display: block;
+	font-family: var(--wp--preset--font-family--display);
+	font-size: var(--wp--preset--font-size--xxxl);
+	font-weight: 800; letter-spacing: -.04em; line-height: 1;
+	color: var(--wp--preset--color--ink);
+}
+.zk-summary__label {
+	display: block; margin-top: .5rem;
+	font-size: var(--wp--preset--font-size--sm);
+	color: var(--wp--preset--color--muted);
+}
+@media (max-width: 781px) {
+	.zk-summary__grid { grid-template-columns: 1fr; }
+}
+
+/* Testimonial. Only rendered when a real quote and name exist. */
+.zk-quote {
+	margin: var(--wp--preset--spacing--50) auto 0;
+	padding: var(--wp--preset--spacing--40);
+	background: var(--wp--preset--color--chalk);
+	border: 1px solid var(--wp--preset--color--line);
+	border-left: 4px solid var(--wp--preset--color--volt);
+	border-radius: 14px;
+}
+.zk-quote blockquote { margin: 0; }
+.zk-quote blockquote p {
+	margin: 0; max-width: 40ch;
+	font-family: var(--wp--preset--font-family--display);
+	font-size: var(--wp--preset--font-size--xxl);
+	line-height: 1.25; letter-spacing: -.025em;
+	color: var(--wp--preset--color--ink);
+}
+.zk-quote figcaption { margin-top: 1.4rem; display: flex; flex-wrap: wrap; gap: .3rem 1rem; }
+.zk-quote__name { font-weight: 700; color: var(--wp--preset--color--ink); }
+.zk-quote__role { color: var(--wp--preset--color--muted); }
+
+/* ------------------------------------------------------ discovery sprint -- */
+
+.zk-sprint { background: var(--wp--preset--color--chalk); }
+.zk-sprint__grid {
+	display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+	gap: var(--wp--preset--spacing--50); align-items: start;
+}
+.zk-sprint__price {
+	display: inline-flex; align-items: baseline; gap: .6rem; flex-wrap: wrap;
+	margin-top: var(--wp--preset--spacing--30);
+}
+.zk-sprint__price strong {
+	font-family: var(--wp--preset--font-family--display);
+	font-size: var(--wp--preset--font-size--xxxl);
+	font-weight: 800; letter-spacing: -.04em; line-height: 1;
+	color: var(--wp--preset--color--ink);
+}
+.zk-sprint__card.zk-sprint__card { height: auto; }
+.zk-sprint__card.zk-sprint__card:hover { transform: none; box-shadow: none; border-color: var(--wp--preset--color--line); }
+.zk-sprint__card .wp-block-list { margin: 1rem 0 0; }
+@media (max-width: 781px) {
+	.zk-sprint__grid { grid-template-columns: 1fr; gap: var(--wp--preset--spacing--40); }
+}
+
 /* ---------------------------------------------------------- sectors band -- */
 
 /* This band sits between two light sections. On chalk it read as an accidental
@@ -719,19 +812,23 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 
 /* -------------------------------------------------------- button variant - */
 
+/* Ink on light by default; paper inside dark bands. The default used to be
+   paper, which made every ghost button on an ordinary light page (Services,
+   the case-study footer) white text on a white ground. */
 .wp-block-button.is-style-ghost .wp-block-button__link {
-	background: transparent; color: var(--wp--preset--color--paper);
-	border: 1px solid rgba(255, 255, 255, .28);
+	background: transparent; color: var(--wp--preset--color--ink);
+	border: 1px solid var(--wp--preset--color--ink);
 }
 .wp-block-button.is-style-ghost .wp-block-button__link:hover {
+	background: var(--wp--preset--color--ink); color: var(--wp--preset--color--paper);
+}
+.zk-dark .wp-block-button.is-style-ghost .wp-block-button__link {
+	color: var(--wp--preset--color--paper);
+	border-color: rgba(255, 255, 255, .28);
+}
+.zk-dark .wp-block-button.is-style-ghost .wp-block-button__link:hover {
 	background: rgba(255, 255, 255, .08); border-color: var(--wp--preset--color--paper);
 	color: var(--wp--preset--color--paper);
-}
-.zk-light .wp-block-button.is-style-ghost .wp-block-button__link {
-	color: var(--wp--preset--color--ink); border-color: var(--wp--preset--color--ink);
-}
-.zk-light .wp-block-button.is-style-ghost .wp-block-button__link:hover {
-	background: var(--wp--preset--color--ink); color: var(--wp--preset--color--paper);
 }
 
 /* ------------------------------------------------------------- reveals --- */

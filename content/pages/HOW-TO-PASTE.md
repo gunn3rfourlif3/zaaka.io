@@ -1,7 +1,8 @@
 # Page content
 
-Six files of WordPress block markup, one per page. Paste each into the page
-that already exists where it does; Accessibility and Privacy have to be created.
+Seven files of WordPress block markup, one per page. Paste each into the page
+that already exists where it does; Accessibility, Privacy and Discovery Sprint
+have to be created.
 The menu is now built from relative URLs rather than page IDs, so creating pages
 no longer risks breaking it — but the slugs must match exactly.
 
@@ -25,6 +26,7 @@ no longer risks breaking it — but the slugs must match exactly.
 | `page-contact.html` | Contact |
 | `page-accessibility.html` | Accessibility — create it, slug `accessibility` |
 | `page-privacy.html` | Privacy — create it, slug `privacy` |
+| `page-discovery-sprint.html` | Discovery Sprint — create it, slug `discovery-sprint` |
 
 ## The two footer pages
 
@@ -58,3 +60,18 @@ them. The slugs must be exactly `privacy` and `accessibility`.
   a promise you want to make.
 - The Approach page says two rounds of design revisions are included. Make sure
   that matches what you actually quote.
+
+## The booking link
+
+Every "Book an intro call" button points at `/book/`. The theme redirects that
+to whatever is set in **Settings → General → Booking link** (the Calendly
+intro-call page). With nothing set, `/book/` goes to `/contact/`, so the
+buttons are never dead. The privacy policy names Calendly as a supplier; if the
+scheduling tool changes, change that line too.
+
+## Case-study summaries and testimonials
+
+Each project has a **Case study summary** box under the editor: the problem,
+what we did, the result, optional result figures (`figure | label`, one per
+line) and an optional testimonial. Empty fields render nothing. Only real
+numbers and real quotes, used with the person's permission, go in here.

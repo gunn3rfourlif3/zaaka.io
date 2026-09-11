@@ -34,3 +34,4 @@ Thumbs.db
 
 # Preview harness output
 /tools/preview/out/
+/tools/preview/__pycache__/

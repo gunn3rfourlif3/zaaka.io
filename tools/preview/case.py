@@ -18,6 +18,30 @@ def terms_html(s):
     return sep.join(f'<a href="#">{t}</a>' for t in TERMS[s])
 
 status = STATUS[slug]
+
+# Case-study summary fields, read from the import file so the preview shows the
+# same copy the site will. Mirrors zaaka_render_case_summary() / _quote().
+import html as _h
+_wxr = (HERE.parents[1] / "content" / "zaaka-projects.wxr.xml").read_text(encoding="utf-8")
+_item = [i for i in _wxr.split("<item>") if f"/work/{slug}/" in i][0]
+META = dict(re.findall(r"<wp:meta_key><!\[CDATA\[(.*?)\]\]></wp:meta_key><wp:meta_value><!\[CDATA\[(.*?)\]\]></wp:meta_value>", _item, re.S))
+if len(sys.argv) > 2 and sys.argv[2] == "--sample-quote":
+    # Layout check only. Never publish sample copy.
+    META.update(zaaka_quote="SAMPLE QUOTE FOR LAYOUT CHECKING — replace with a real client's words before anything like this ships.", zaaka_quote_name="Sample Name", zaaka_quote_role="Role, Company", zaaka_results="000 | sample figure\n00% | sample figure")
+cells = [(l, META.get(k, "")) for l, k in (("The problem", "zaaka_problem"), ("What we did", "zaaka_role"), ("The result", "zaaka_outcome")) if META.get(k)]
+figs = [tuple(x.strip() for x in ln.split("|", 1)) for ln in META.get("zaaka_results", "").splitlines() if "|" in ln]
+summary = ""
+if cells or figs:
+    summary = '<section class="zk-summary alignwide"><h2 class="screen-reader-text">At a glance</h2>'
+    if cells:
+        summary += '<dl class="zk-summary__grid">' + "".join(f'<div class="zk-summary__cell"><dt class="zk-meta">{l}</dt><dd>{_h.escape(t)}</dd></div>' for l, t in cells) + "</dl>"
+    if figs:
+        summary += '<ul class="zk-summary__figures" role="list">' + "".join(f'<li><span class="zk-summary__figure">{_h.escape(a)}</span><span class="zk-summary__label">{_h.escape(b)}</span></li>' for a, b in figs) + "</ul>"
+    summary += "</section>"
+quote = ""
+if META.get("zaaka_quote") and META.get("zaaka_quote_name"):
+    quote = (f'<figure class="zk-quote alignwide"><blockquote><p>{_h.escape(META["zaaka_quote"])}</p></blockquote><figcaption>'
+             f'<span class="zk-quote__name">{_h.escape(META["zaaka_quote_name"])}</span><span class="zk-quote__role">{_h.escape(META.get("zaaka_quote_role", ""))}</span></figcaption></figure>')
 head_css = (
     ":root{" + "".join(B.props) + "}\n" + B.CORE_CSS + "\n"
     + "".join(B.colour_classes) + "".join(B.size_classes) + "\n"
@@ -50,10 +74,12 @@ html = f"""<!DOCTYPE html><html lang="en-ZA"><head><meta charset="utf-8">
   <div class="wp-block-post-excerpt alignwide zk-case__lede has-xl-font-size"><p class="wp-block-post-excerpt__excerpt">{proj['excerpt']}</p></div>
  </div>
  <figure class="wp-block-post-featured-image alignwide zk-case__media"><img src="{slug}-featured.png" alt=""></figure>
+ {summary}
  <div class="entry-content wp-block-post-content zk-case__body is-layout-constrained">{proj['content']}</div>
+ {quote}
  <div class="wp-block-group alignwide zk-case__next is-layout-flex zk-lnext" style="margin-top:var(--wp--preset--spacing--60);padding-top:var(--wp--preset--spacing--50)">
   <h2 class="wp-block-heading has-xxl-font-size">Something like this to build?</h2>
-  <div class="wp-block-buttons"><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/contact/">Start a project</a></div></div>
+  <div class="wp-block-buttons"><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/contact/">Start a project</a></div><div class="wp-block-button is-style-ghost"><a class="wp-block-button__link wp-element-button" href="/book/">Book an intro call</a></div></div>
  </div>
  <div class="wp-block-group alignwide zk-work zk-case__more" style="margin-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)">
   <p class="is-style-eyebrow">Keep reading</p>
@@ -65,5 +91,5 @@ html = f"""<!DOCTYPE html><html lang="en-ZA"><head><meta charset="utf-8">
 {B.footer}
 </body></html>"""
 
-(B.OUT / f"case-{slug}.html").write_text(html)
+(B.OUT / (f"case-{slug}" + ("-sample" if quote and "SAMPLE" in quote else "") + ".html")).write_text(html)
 print(f"out/case-{slug}.html written: {len(html)} bytes")

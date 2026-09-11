@@ -204,7 +204,7 @@ def strip_blocks(markup: str) -> str:
     return markup
 
 order = ["hero", "marquee", "flagship", "services", "work-grid",
-         "sectors", "process", "cta"]
+         "sectors", "process", "sprint", "cta"]
 body = "".join(strip_blocks((THEME / "patterns" / f"{n}.php").read_text()) for n in order)
 
 # The work grid is a query loop; with no posts WordPress renders the no-results

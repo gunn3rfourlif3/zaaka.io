@@ -87,8 +87,13 @@
 		<wp:postmeta><wp:meta_key><![CDATA[zaaka_year]]></wp:meta_key><wp:meta_value><![CDATA[2026]]></wp:meta_value></wp:postmeta>
 		<wp:postmeta><wp:meta_key><![CDATA[zaaka_stack]]></wp:meta_key><wp:meta_value><![CDATA[React Native · TypeScript · Kotlin · Android Accessibility API]]></wp:meta_value></wp:postmeta>
 		<wp:postmeta><wp:meta_key><![CDATA[zaaka_url]]></wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
-		<wp:postmeta><wp:meta_key><![CDATA[zaaka_outcome]]></wp:meta_key><wp:meta_value><![CDATA[Keep-or-reject verdict delivered inside the 15-second trip request window]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_outcome]]></wp:meta_key><wp:meta_value><![CDATA[A keep-or-reject verdict on every trip request, delivered inside the fifteen-second acceptance window. An in-house product.]]></wp:meta_value></wp:postmeta>
 		<wp:postmeta><wp:meta_key><![CDATA[zaaka_status]]></wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_problem]]></wp:meta_key><wp:meta_value><![CDATA[Rideshare drivers get about fifteen seconds to accept a trip — not enough time to work out whether it pays once fuel, depreciation and the empty miles to the pickup come off the fare.]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_results]]></wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_quote]]></wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_quote_name]]></wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_quote_role]]></wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
 	</item>
 
 	<item>
@@ -145,8 +150,13 @@
 		<wp:postmeta><wp:meta_key><![CDATA[zaaka_year]]></wp:meta_key><wp:meta_value><![CDATA[2026]]></wp:meta_value></wp:postmeta>
 		<wp:postmeta><wp:meta_key><![CDATA[zaaka_stack]]></wp:meta_key><wp:meta_value><![CDATA[Next.js 14 · React Native (Expo) · immutable double-entry ledger]]></wp:meta_value></wp:postmeta>
 		<wp:postmeta><wp:meta_key><![CDATA[zaaka_url]]></wp:meta_key><wp:meta_value><![CDATA[https://www.locare.co.za]]></wp:meta_value></wp:postmeta>
-		<wp:postmeta><wp:meta_key><![CDATA[zaaka_outcome]]></wp:meta_key><wp:meta_value><![CDATA[The whole rental lifecycle in one auditable system]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_outcome]]></wp:meta_key><wp:meta_value><![CDATA[The whole rental lifecycle in one system, on a ledger an agency can be audited against. Live at locare.co.za — we designed it, built it and run its infrastructure.]]></wp:meta_value></wp:postmeta>
 		<wp:postmeta><wp:meta_key><![CDATA[zaaka_status]]></wp:meta_key><wp:meta_value><![CDATA[Live]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_problem]]></wp:meta_key><wp:meta_value><![CDATA[Rental agencies typically run leasing, rent collection, trust accounting and maintenance across separate tools and spreadsheets — while the trust money in the middle has to reconcile to the cent.]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_results]]></wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_quote]]></wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_quote_name]]></wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_quote_role]]></wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
 	</item>
 
 </channel>
