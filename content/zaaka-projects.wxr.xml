@@ -28,6 +28,11 @@
 	<wp:term><wp:term_id>202</wp:term_id><wp:term_taxonomy>sector</wp:term_taxonomy><wp:term_slug>fintech</wp:term_slug><wp:term_name><![CDATA[Fintech]]></wp:term_name></wp:term>
 	<wp:term><wp:term_id>203</wp:term_id><wp:term_taxonomy>sector</wp:term_taxonomy><wp:term_slug>property</wp:term_slug><wp:term_name><![CDATA[Property]]></wp:term_name></wp:term>
 
+		<wp:term><wp:term_id>111</wp:term_id><wp:term_taxonomy>discipline</wp:term_taxonomy><wp:term_slug>ecommerce</wp:term_slug><wp:term_name><![CDATA[E-commerce]]></wp:term_name></wp:term>
+	<wp:term><wp:term_id>112</wp:term_id><wp:term_taxonomy>discipline</wp:term_taxonomy><wp:term_slug>brand</wp:term_slug><wp:term_name><![CDATA[Brand]]></wp:term_name></wp:term>
+	<wp:term><wp:term_id>204</wp:term_id><wp:term_taxonomy>sector</wp:term_taxonomy><wp:term_slug>retail</wp:term_slug><wp:term_name><![CDATA[Retail]]></wp:term_name></wp:term>
+	<wp:term><wp:term_id>205</wp:term_id><wp:term_taxonomy>sector</wp:term_taxonomy><wp:term_slug>pet-care</wp:term_slug><wp:term_name><![CDATA[Pet care]]></wp:term_name></wp:term>
+	<wp:term><wp:term_id>206</wp:term_id><wp:term_taxonomy>sector</wp:term_taxonomy><wp:term_slug>food-drink</wp:term_slug><wp:term_name><![CDATA[Food & drink]]></wp:term_name></wp:term>
 	<item>
 		<title><![CDATA[Uberfi]]></title>
 		<link>https://zaaka.io/work/uberfi/</link>
@@ -159,5 +164,101 @@
 		<wp:postmeta><wp:meta_key><![CDATA[zaaka_quote_role]]></wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
 	</item>
 
+	<item>
+		<title><![CDATA[BuddhaPets]]></title>
+		<link>https://zaaka.io/work/buddhapets/</link>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<guid isPermaLink="false">https://zaaka.io/?post_type=project&amp;p=9132</guid>
+		<content:encoded><![CDATA[<!-- wp:heading --><h2 class="wp-block-heading">What it is</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>BuddhaPets sells calm to anxious dogs, restless cats and the people who live with them: deep-pressure beds, snuffle mats, slow feeders, fountains and calming treats. Fourteen pieces at launch, each chosen to earn a place in a routine rather than to sit in a basket as a novelty.</p><!-- /wp:paragraph -->
+<!-- wp:paragraph --><p>Most of what gets sold in this category is a one-off purchase with a promise attached. The brief was a store that sells the other thing — <strong>the routine that makes a product work</strong> — and earns trust before a single review exists.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2 class="wp-block-heading">Shop by ritual, not by shelf</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>The catalogue is grouped by what a product does in a pet's evening, not by what aisle it would be in: Calm &amp; Comfort, Slow Living, Zen Home and Together. Each collection explains the behaviour it is for before it shows a single price, so a visitor who arrived with a pacing dog leaves knowing why a snuffle mat helps, not just that one exists.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2 class="wp-block-heading">Decisions worth naming</h2><!-- /wp:heading -->
+<!-- wp:list {"className":"is-style-ticks"} --><ul class="wp-block-list is-style-ticks">
+<!-- wp:list-item --><li><strong>The quiz returns a plan, not a product list.</strong> Six questions about a pet's stress signals, about two minutes, ending in a named Zen Plan. A recommendation engine that only ever answers "buy this" teaches people to ignore it.</li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><strong>The Ritual Builder sells a set.</strong> Pick a comfort piece, an enrichment toy and a finishing touch, and the set price drops 15%. Every ritual ships with a printed evening-routine guide, because the routine is the product.</li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><strong>Delivery estimates before checkout.</strong> Stock ships from overseas warehouses, so every listing shows an honest arrival window before anyone pays, not after.</li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><strong>Rand first, other currencies on request.</strong> Prices are set in ZAR with a display switch for USD, EUR, GBP and AUD.</li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><strong>The guarantee does the persuading.</strong> A 60-day Happy Pet Guarantee sits on every product, in place of claims about what a product will fix.</li><!-- /wp:list-item -->
+</ul><!-- /wp:list -->
+
+<!-- wp:heading --><h2 class="wp-block-heading">How it is built</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>A Next.js storefront with collection-led browsing, product pages at <code>/shop/&lt;slug&gt;</code>, the quiz and Ritual Builder, an FAQ and a journal. The journal is the store's long game: articles on evening rituals, slow feeding and what the research says about calming ingredients, written to be found by the owners searching at eleven at night.</p><!-- /wp:paragraph -->
+]]></content:encoded>
+		<excerpt:encoded><![CDATA[A calm-pet store organised by ritual rather than by shelf, with a quiz that recommends a routine and a builder that turns three products into a set.]]></excerpt:encoded>
+		<wp:post_id>9132</wp:post_id>
+		<wp:post_name><![CDATA[buddhapets]]></wp:post_name>
+		<wp:status><![CDATA[draft]]></wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>3</wp:menu_order>
+		<wp:post_type><![CDATA[project]]></wp:post_type>
+		<category domain="discipline" nicename="ecommerce"><![CDATA[E-commerce]]></category>
+		<category domain="discipline" nicename="brand"><![CDATA[Brand]]></category>
+		<category domain="discipline" nicename="engineering"><![CDATA[Engineering]]></category>
+		<category domain="sector" nicename="retail"><![CDATA[Retail]]></category>
+		<category domain="sector" nicename="pet-care"><![CDATA[Pet care]]></category>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_client]]></wp:meta_key><wp:meta_value><![CDATA[BuddhaPets]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_role]]></wp:meta_key><wp:meta_value><![CDATA[Brand, design and engineering]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_year]]></wp:meta_key><wp:meta_value><![CDATA[2026]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_stack]]></wp:meta_key><wp:meta_value><![CDATA[Next.js]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_url]]></wp:meta_key><wp:meta_value><![CDATA[https://buddhapets.co.za]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_status]]></wp:meta_key><wp:meta_value><![CDATA[Pre-launch]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_problem]]></wp:meta_key><wp:meta_value><![CDATA[Calming products for pets are mostly sold one novelty at a time, with promises that don't hold. BuddhaPets needed a store that sells the routine that makes a product work, and earns trust before its first review.]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_outcome]]></wp:meta_key><wp:meta_value><![CDATA[A store where every page leads to a ritual: collections grouped by what a product does, a quiz that returns a plan, and a builder that turns three products into a set at 15% off.]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_results]]></wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_quote]]></wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_quote_name]]></wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_quote_role]]></wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+	</item>
+	<item>
+		<title><![CDATA[Cofifi]]></title>
+		<link>https://zaaka.io/work/cofifi/</link>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<guid isPermaLink="false">https://zaaka.io/?post_type=project&amp;p=9133</guid>
+		<content:encoded><![CDATA[<!-- wp:heading --><h2 class="wp-block-heading">What it is</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Cofifi — Afro Coffee &amp; Treats Co. — roasts 100% Ethiopian beans the traditional way, by women, and sells a CBD line alongside the coffee. Three products to start: the coffee, a coffee with CBD, and a CBD oil. The brand's story is the Ethiopian coffee ceremony, and the site is built to carry it rather than bury it under an "our story" page.</p><!-- /wp:paragraph -->
+<!-- wp:paragraph --><p>Selling coffee and CBD from one shop is harder than it sounds. CBD narrows which payment providers will take you, limits what you are allowed to say, and can make the coffee next to it look like something it is not.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2 class="wp-block-heading">Decisions worth naming</h2><!-- /wp:heading -->
+<!-- wp:list {"className":"is-style-ticks"} --><ul class="wp-block-list is-style-ticks">
+<!-- wp:list-item --><li><strong>Two doors from the homepage.</strong> The Roastery and the Apothecary. A coffee buyer never has to wade through CBD to reach their bag of beans, and a CBD buyer lands somewhere that takes the product seriously.</li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><strong>One accent, one meaning.</strong> Coffee is black and bone; teal belongs to the CBD line and nothing else. The colour tells you which side of the shop you are on before the copy does.</li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><strong>CBD copy describes; it never claims.</strong> Dose, format and spectrum, a compliance line on every page that carries CBD, and a batch number with a link to its certificate of analysis on each CBD product.</li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><strong>No payment gateway hard-coded.</strong> Most gateways restrict CBD, and the South African ones approve CBD merchants case by case. The gateway is a WooCommerce setting, so approval changes a setting rather than the code.</li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><strong>Grain, not gloss.</strong> Flat black reads cheap on a screen. A faint film grain and soft light behind each packshot give the dark pages the texture of the packaging.</li><!-- /wp:list-item -->
+</ul><!-- /wp:list -->
+
+<!-- wp:heading --><h2 class="wp-block-heading">How it is built</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>A custom WordPress theme on WooCommerce, written by hand: no page builder, no build step, and only the two WooCommerce templates that actually needed changing are overridden. WooCommerce keeps doing what it is good at — cart, checkout, stock, shipping and tax — and the theme does the rest.</p><!-- /wp:paragraph -->
+<!-- wp:paragraph --><p>One command takes an empty folder to a working shop: it installs WordPress and WooCommerce, activates the theme and sets up the pages, menus, categories and products. It is safe to run twice, so a failed install is fixed by running it again.</p><!-- /wp:paragraph -->
+]]></content:encoded>
+		<excerpt:encoded><![CDATA[A WooCommerce shop for an Ethiopian coffee roaster with a CBD line, built as a custom theme that keeps the coffee and the CBD visibly and legally apart.]]></excerpt:encoded>
+		<wp:post_id>9133</wp:post_id>
+		<wp:post_name><![CDATA[cofifi]]></wp:post_name>
+		<wp:status><![CDATA[draft]]></wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>4</wp:menu_order>
+		<wp:post_type><![CDATA[project]]></wp:post_type>
+		<category domain="discipline" nicename="ecommerce"><![CDATA[E-commerce]]></category>
+		<category domain="discipline" nicename="brand"><![CDATA[Brand]]></category>
+		<category domain="discipline" nicename="engineering"><![CDATA[Engineering]]></category>
+		<category domain="sector" nicename="retail"><![CDATA[Retail]]></category>
+		<category domain="sector" nicename="food-drink"><![CDATA[Food & drink]]></category>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_client]]></wp:meta_key><wp:meta_value><![CDATA[Cofifi — Afro Coffee & Treats Co.]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_role]]></wp:meta_key><wp:meta_value><![CDATA[Brand, design and engineering]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_year]]></wp:meta_key><wp:meta_value><![CDATA[2026]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_stack]]></wp:meta_key><wp:meta_value><![CDATA[WordPress · WooCommerce · custom PHP theme]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_url]]></wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_status]]></wp:meta_key><wp:meta_value><![CDATA[In build]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_problem]]></wp:meta_key><wp:meta_value><![CDATA[A premium coffee brand with a CBD line needs one shop that sells both without one undermining the other, while CBD limits the payment providers available and the claims the brand can make.]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_outcome]]></wp:meta_key><wp:meta_value><![CDATA[A hand-written WooCommerce theme with the coffee and CBD lines kept apart in layout, colour and copy, and a one-command install that takes an empty folder to a working shop.]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_results]]></wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_quote]]></wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_quote_name]]></wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+		<wp:postmeta><wp:meta_key><![CDATA[zaaka_quote_role]]></wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+	</item>
 </channel>
 </rss>
