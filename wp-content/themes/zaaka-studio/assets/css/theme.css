@@ -1261,8 +1261,18 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
  * change turns a safe replace-in-place deploy into a delete-and-reinstall.
  */
 .zk-brief-wrap {
-	margin-inline: calc(50% - 50vw);
-	width: 100vw; max-width: 100vw;
+	/* The margins are !important because WordPress's are. Core ships
+	 *   .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull))
+	 *   { max-width: <content-size>; margin-left: auto !important; margin-right: auto !important }
+	 * and this block is a child of two constrained containers (main and
+	 * post-content). Without !important the max-width was overridden but the
+	 * auto margins were not, so the block sized itself to the viewport inside a
+	 * 780px column and was pushed off to the right — full width, wrong place.
+	 * Width stays auto: the negative margins do the widening, which avoids
+	 * 100vw disagreeing with the scrollbar.
+	 */
+	margin-inline: calc(50% - 50vw) !important;
+	width: auto; max-width: none;
 	background: var(--wp--preset--color--void);
 	color: var(--wp--preset--color--paper);
 	padding-block: var(--wp--preset--spacing--50);

@@ -186,3 +186,39 @@ JavaScript, which is why this survives code review.
 
 **Lesson.** Any component that sets `display` and is ever toggled with `hidden`
 needs an explicit `[hidden] { display: none !important }` in scope.
+
+---
+
+## 11. WordPress constrains layout children with `!important`
+
+**Symptom.** The Brief Builder was meant to run edge to edge. Live, it was the
+right width but started a third of the way across the page and overflowed off
+the right edge. It had rendered correctly in the preview harness.
+
+**Cause.** Core ships:
+
+```css
+.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
+  max-width: var(--wp--style--global--content-size);
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+```
+
+The block sits inside two constrained containers — `main` and post-content. The
+`max-width` was overridden normally (`:where()` contributes no specificity, so
+it is a plain 0,1,0 selector and a later rule wins), but the **auto margins
+were not**, because they are `!important`. So the block took the viewport width
+inside a 780px column and the auto margins pushed it right: full width, wrong
+place. Half the rule applying is what made it look like a sizing bug rather
+than a cascade one.
+
+**Lesson.** To break a block out of a constrained container, the negative
+margins must be `!important` too — or the element needs `alignfull`, which that
+`:where()` deliberately excludes. Note that `alignfull` alone is not enough
+here: an `alignfull` child of a 780px-wide post-content is still 780px wide.
+
+**Also the harness's fault.** The brief preview wrapped the form in a plain
+centered div instead of WordPress's real chain, so the constrained rules never
+applied and the bug could not appear. `build.py` emits `is-layout-constrained`
+for exactly this reason. Any harness that does not is testing a different page.
