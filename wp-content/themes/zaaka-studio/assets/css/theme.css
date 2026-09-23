@@ -1249,3 +1249,24 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
  * reading the markup — nothing about it looks wrong in the JavaScript.
  */
 .zk-brief-wrap [hidden] { display: none !important; }
+
+/* The form supplies its own ground.
+ *
+ * The site body is paper on ink; every dark band in this theme is a block with
+ * backgroundColor set, not a body default. A shortcode has no such block around
+ * it, so without this the component renders its dark-band styling on a white
+ * page. It also has to escape the 780px content column — the question/brief
+ * split needs roughly 1180px — which is done here rather than with a custom
+ * template, because registering one means editing theme.json, and a theme.json
+ * change turns a safe replace-in-place deploy into a delete-and-reinstall.
+ */
+.zk-brief-wrap {
+	margin-inline: calc(50% - 50vw);
+	width: 100vw; max-width: 100vw;
+	background: var(--wp--preset--color--void);
+	color: var(--wp--preset--color--paper);
+	padding-block: var(--wp--preset--spacing--50);
+	padding-inline: max(1rem, calc((100vw - 1180px) / 2));
+	box-sizing: border-box;
+}
+.zk-brief-wrap *, .zk-brief-wrap *::before, .zk-brief-wrap *::after { box-sizing: border-box; }

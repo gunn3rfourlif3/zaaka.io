@@ -103,14 +103,14 @@ function zaaka_brief_form() {
 
 	if ( 'sent' === $status ) {
 		?>
-		<div class="zk-brief-done" id="brief">
+		<div class="zk-brief-wrap zk-dark"><div class="zk-brief-done" id="brief">
 			<p class="is-style-eyebrow"><?php esc_html_e( 'Received', 'zaaka-studio' ); ?></p>
 			<h2 class="zk-q"><?php esc_html_e( 'That is your brief, and it is with us.', 'zaaka-studio' ); ?></h2>
 			<p class="zk-help">
 				<?php esc_html_e( 'We read these properly and reply within one working day — with what we think you are actually buying, which is occasionally different from what you asked for. A copy is on its way to you either way; it is yours to take anywhere.', 'zaaka-studio' ); ?>
 			</p>
 			<p><a class="zk-btn" href="<?php echo esc_url( home_url( '/book/' ) ); ?>"><?php esc_html_e( 'Book the call now', 'zaaka-studio' ); ?></a></p>
-		</div>
+		</div></div>
 		<?php
 		return ob_get_clean();
 	}
@@ -125,7 +125,7 @@ function zaaka_brief_form() {
 
 	$scope = zaaka_brief_scope_options();
 	?>
-	<div class="zk-brief-wrap" id="brief">
+	<div class="zk-brief-wrap zk-dark" id="brief">
 
 		<?php if ( 'email' === $status ) : ?>
 			<p class="zk-notice" role="alert"><?php esc_html_e( 'We need an email address to reply to — everything else is optional.', 'zaaka-studio' ); ?></p>
