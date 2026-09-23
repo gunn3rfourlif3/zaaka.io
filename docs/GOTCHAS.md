@@ -222,3 +222,26 @@ here: an `alignfull` child of a 780px-wide post-content is still 780px wide.
 centered div instead of WordPress's real chain, so the constrained rules never
 applied and the bug could not appear. `build.py` emits `is-layout-constrained`
 for exactly this reason. Any harness that does not is testing a different page.
+
+---
+
+## 12. Scoping a component's rules to its form loses the states outside it
+
+**Symptom.** After a brief was submitted, the confirmation heading — "That is
+your brief, and it is with us." — was all but invisible: dark text on the dark
+band. Body text on the same screen was fine.
+
+**Cause.** The component's typography was scoped to `.zk-brief-form`, and the
+confirmation state is not inside a form — it *replaces* it. So the `<h2>` fell
+through to `theme.json`'s `elements.heading.color.text`, which is `ink`, on a
+`void` ground: about 1.4:1.
+
+Body copy looked fine on the same screen and hid the problem, because a `<p>`
+has no colour of its own and inherited `paper` from the wrapper. Headings carry
+an explicit colour from `theme.json` and never inherit, so they are the element
+that breaks when a dark band is introduced.
+
+**Lesson.** Scope a component's colour rules to its outermost wrapper, not to
+the interactive part. And when adding a dark band anywhere in this theme, set
+heading colour explicitly — `elements.heading` in `theme.json` means every
+heading arrives `ink` regardless of what it sits on.

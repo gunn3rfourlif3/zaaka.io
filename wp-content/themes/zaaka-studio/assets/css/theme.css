@@ -1280,3 +1280,20 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 	box-sizing: border-box;
 }
 .zk-brief-wrap *, .zk-brief-wrap *::before, .zk-brief-wrap *::after { box-sizing: border-box; }
+
+/* Headings inside the band need an explicit colour.
+ *
+ * The component's typography rules were scoped to .zk-brief-form, but the
+ * confirmation state is not inside a form — it replaces it. Its <h2> therefore
+ * fell through to the global heading colour, which is `ink`, on a `void`
+ * ground: 1.4:1, effectively invisible. Body text was fine because it inherits
+ * from .zk-brief-wrap; headings carry their own colour and do not.
+ *
+ * Scoped to the wrapper rather than the form so anything added to this band
+ * later is covered by default.
+ */
+.zk-brief-wrap h1, .zk-brief-wrap h2, .zk-brief-wrap h3,
+.zk-brief-wrap legend, .zk-brief-wrap .zk-q {
+	color: var(--wp--preset--color--paper);
+}
+.zk-brief-wrap .zk-help { color: var(--wp--preset--color--mist); }
