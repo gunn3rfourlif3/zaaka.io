@@ -151,3 +151,38 @@ Uploading an image to the Media Library does **not** attach it to anything.
 featured image. Check
 `/wp-json/wp/v2/project?_fields=id,slug,featured_media` before assuming the
 template is at fault.
+
+---
+
+## 9. Reusing a `zk-` class name silently inherits another component
+
+**Symptom.** The Brief Builder's question steps each drew a 3px volt rule under
+the heading, and every answer chip rendered as a pill inside a pill.
+
+**Cause.** Two class names were already taken. `.zk-step` belongs to the process
+pattern, which draws a volt `::before` rule; `.zk-chips` belongs to the sector
+band, whose rule is `.zk-chips span { border; border-radius: 999px; padding }`
+— it styles *every* span inside it, and the new chips had a span for their
+label. Neither showed up when inspecting the new CSS, because neither rule is
+in it.
+
+**Lesson.** The theme's classes are a flat namespace with no build step to warn
+about collisions. Before naming a component, grep `assets/css/theme.css` for
+the name. A `::before` on someone else's class is invisible in the DOM — it
+does not appear in `querySelectorAll`, so a script that looks for stray
+elements finds nothing. `getComputedStyle(el, '::before')` is what finds it.
+
+---
+
+## 10. `hidden` loses to any rule that sets `display`
+
+**Symptom.** The Brief Builder's submit button and its completion stamp were
+visible on every step, although the script had set `hidden` on both.
+
+**Cause.** The `hidden` attribute is a presentation hint with roughly the weight
+of a type selector, so `.zk-btn { display: inline-block }` and
+`.zk-stamp { display: flex }` both beat it. Nothing looks wrong in the
+JavaScript, which is why this survives code review.
+
+**Lesson.** Any component that sets `display` and is ever toggled with `hidden`
+needs an explicit `[hidden] { display: none !important }` in scope.
