@@ -12,12 +12,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ZAAKA_VERSION', '1.6.2' );
+define( 'ZAAKA_VERSION', '1.7.0' );
 
 require_once get_template_directory() . '/inc/case-study.php';
 require_once get_template_directory() . '/inc/booking.php';
 require_once get_template_directory() . '/inc/brief.php';
 require_once get_template_directory() . '/inc/brief-form.php';
+require_once get_template_directory() . '/inc/ping.php';
 
 /**
  * Theme supports.
@@ -277,6 +278,13 @@ function zaaka_block_styles() {
 		array(
 			'name'  => 'card',
 			'label' => __( 'Card', 'zaaka-studio' ),
+		)
+	);
+	register_block_style(
+		'core/group',
+		array(
+			'name'  => 'band',
+			'label' => __( 'Full-bleed dark band', 'zaaka-studio' ),
 		)
 	);
 	register_block_style(

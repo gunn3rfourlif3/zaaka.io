@@ -1260,7 +1260,7 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
  * template, because registering one means editing theme.json, and a theme.json
  * change turns a safe replace-in-place deploy into a delete-and-reinstall.
  */
-.zk-brief-wrap {
+.zk-brief-wrap, .zk-band, .wp-block-group.is-style-band {
 	/* The margins are !important because WordPress's are. Core ships
 	 *   .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull))
 	 *   { max-width: <content-size>; margin-left: auto !important; margin-right: auto !important }
@@ -1279,7 +1279,9 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 	padding-inline: max(1rem, calc((100vw - 1180px) / 2));
 	box-sizing: border-box;
 }
-.zk-brief-wrap *, .zk-brief-wrap *::before, .zk-brief-wrap *::after { box-sizing: border-box; }
+.zk-brief-wrap *, .zk-brief-wrap *::before, .zk-brief-wrap *::after,
+.zk-band *, .zk-band *::before, .zk-band *::after,
+.is-style-band *, .is-style-band *::before, .is-style-band *::after { box-sizing: border-box; }
 
 /* Headings inside the band need an explicit colour.
  *
@@ -1293,7 +1295,81 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
  * later is covered by default.
  */
 .zk-brief-wrap h1, .zk-brief-wrap h2, .zk-brief-wrap h3,
-.zk-brief-wrap legend, .zk-brief-wrap .zk-q {
+.zk-brief-wrap legend, .zk-brief-wrap .zk-q,
+.zk-band h1, .zk-band h2, .zk-band h3, .zk-band h4,
+.is-style-band h1, .is-style-band h2, .is-style-band h3, .is-style-band h4 {
 	color: var(--wp--preset--color--paper);
 }
 .zk-brief-wrap .zk-help { color: var(--wp--preset--color--mist); }
+
+/* ===================================== the standing invitation (ping) === */
+/*
+ * A floating link to /brief/, placed where a chat widget would sit because
+ * that is where people look for a way to start. It is a link, not a widget:
+ * no third-party script, nothing to consent to, and it works with JavaScript
+ * off. inc/ping.php decides where it appears.
+ */
+
+.zk-ping {
+	position: fixed; z-index: 80;
+	right: 1.25rem;
+	bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+	display: inline-flex; align-items: center; gap: .6rem;
+	padding: .85rem 1.35rem; border-radius: 999px;
+	background: var(--wp--preset--color--volt);
+	color: var(--wp--preset--color--void);
+	font-size: var(--wp--preset--font-size--sm);
+	font-weight: 700; letter-spacing: -.01em; text-decoration: none;
+	box-shadow: 0 10px 30px rgba(7, 8, 10, .35);
+	transition: transform .35s var(--zk-ease-out), background .3s,
+	            box-shadow .35s var(--zk-ease-out);
+	animation: zk-ping-in .5s var(--zk-ease-out) 1.2s both;
+}
+.zk-ping:hover, .zk-ping:focus-visible {
+	transform: translateY(-3px);
+	background: var(--wp--preset--color--paper);
+	color: var(--wp--preset--color--void);
+	box-shadow: 0 16px 40px rgba(7, 8, 10, .45);
+}
+.zk-ping__dot {
+	width: 7px; height: 7px; border-radius: 50%; flex: none;
+	background: var(--wp--preset--color--void);
+}
+
+/* The ping itself: a ring leaves the pill, expands, fades, and then nothing
+ * happens for four seconds. Drawn in `ink`, not `volt` — the ring travels out
+ * over the page, and every template except the brief band is `paper`, where a
+ * volt ring measures about 1.2:1 and is simply not there. */
+.zk-ping::after {
+	content: ""; position: absolute; inset: -2px;
+	border: 2px solid var(--wp--preset--color--ink);
+	border-radius: 999px; pointer-events: none; opacity: 0;
+	animation: zk-ping-out 5s var(--zk-ease-out) 2s infinite;
+}
+/* Once someone is on it, stop asking for their attention. */
+.zk-ping:hover::after, .zk-ping:focus-visible::after { animation: none; opacity: 0; }
+
+@keyframes zk-ping-in {
+	from { opacity: 0; transform: translateY(14px) scale(.94); }
+	to   { opacity: 1; transform: none; }
+}
+@keyframes zk-ping-out {
+	0%   { transform: scale(1);    opacity: .55; }
+	14%  { transform: scale(1.28); opacity: 0; }
+	100% { transform: scale(1.28); opacity: 0; }
+}
+
+/* On a dark band the ink ring disappears; swap it for volt, which reads there. */
+.zk-dark .zk-ping::after { border-color: var(--wp--preset--color--volt); }
+
+@media (max-width: 560px) {
+	.zk-ping {
+		right: 1rem; bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+		padding: .78rem 1.15rem;
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.zk-ping { animation: none; }
+	.zk-ping::after { animation: none; opacity: 0; }
+}
+@media print { .zk-ping { display: none; } }

@@ -245,3 +245,23 @@ that breaks when a dark band is introduced.
 the interactive part. And when adding a dark band anywhere in this theme, set
 heading colour explicitly — `elements.heading` in `theme.json` means every
 heading arrives `ink` regardless of what it sits on.
+
+---
+
+## 13. A harness without the preset classes ignores every colour you set
+
+**Symptom.** The rewritten Contact page measured 20:1 for text that was set to
+`mist` — the number for `paper`. Everything "passed", and none of it was the
+colour the markup asked for.
+
+**Cause.** WordPress generates a utility class per `theme.json` palette entry
+(`.has-mist-color`, `.has-xl-font-size`, and so on) and block markup refers to
+them by class alone. A harness that emits the custom properties but not those
+classes drops every `textColor` and `fontSize` in the markup silently — the
+text just inherits, which usually looks plausible.
+
+**Lesson.** Rendering the tokens is not the same as rendering the theme. A
+harness has to emit what WordPress emits: the layout classes (GOTCHAS 11), the
+preset utility classes, and `theme.json`'s element styles (GOTCHAS 12). Any one
+of the three missing means the preview is a different page from the site, and
+the measurements are worth nothing.
