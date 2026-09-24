@@ -63,10 +63,8 @@ function zaaka_ping() {
 	}
 	?>
 	<a class="zk-ping" href="<?php echo esc_url( home_url( '/brief/' ) ); ?>">
-		<span class="zk-ping__pill">
-			<span class="zk-ping__mark"><?php echo zaaka_svg( 'logo-mark' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
-			<span class="zk-ping__label"><?php esc_html_e( 'Start a brief', 'zaaka-studio' ); ?></span>
-		</span>
+		<span class="zk-ping__mark"><?php echo zaaka_svg( 'logo-mark' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+		<span class="zk-ping__label"><?php esc_html_e( 'Start a brief', 'zaaka-studio' ); ?></span>
 	</a>
 	<?php
 }
