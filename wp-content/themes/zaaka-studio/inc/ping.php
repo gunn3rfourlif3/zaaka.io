@@ -53,7 +53,9 @@ function zaaka_ping_should_show() {
  * Print it.
  *
  * A plain anchor: it works with CSS disabled, with JavaScript disabled, and it
- * is in the tab order in its natural place at the end of the document.
+ * is in the tab order in its natural place at the end of the document. The
+ * label is always in the markup — hidden by max-width, not by display — so it
+ * is what a screen reader announces even while the button is a bare circle.
  */
 function zaaka_ping() {
 	if ( ! zaaka_ping_should_show() ) {
@@ -61,9 +63,8 @@ function zaaka_ping() {
 	}
 	?>
 	<a class="zk-ping" href="<?php echo esc_url( home_url( '/brief/' ) ); ?>">
-		<span class="zk-ping__dot" aria-hidden="true"></span>
+		<span class="zk-ping__mark"><?php echo zaaka_svg( 'logo-mark' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
 		<span class="zk-ping__label"><?php esc_html_e( 'Start a brief', 'zaaka-studio' ); ?></span>
-		<span class="screen-reader-text"><?php esc_html_e( '— ten questions, about five minutes', 'zaaka-studio' ); ?></span>
 	</a>
 	<?php
 }

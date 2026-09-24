@@ -1304,72 +1304,91 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 
 /* ===================================== the standing invitation (ping) === */
 /*
- * A floating link to /brief/, placed where a chat widget would sit because
- * that is where people look for a way to start. It is a link, not a widget:
- * no third-party script, nothing to consent to, and it works with JavaScript
- * off. inc/ping.php decides where it appears.
+ * A round volt button carrying the Zaaka Z, sitting where a chat widget would,
+ * because that is where people look for a way to start. It is a link, not a
+ * widget: no third-party script, nothing to consent to, and it works with
+ * JavaScript off. inc/ping.php decides where it appears.
+ *
+ * At rest it is a circle. On hover or keyboard focus it grows sideways into a
+ * pill and the label arrives. The growth is a max-width transition on the
+ * label rather than a width transition on the button, because `width: auto`
+ * does not animate — the button is simply as wide as its contents, and the
+ * contents are what changes size.
  */
 
 .zk-ping {
 	position: fixed; z-index: 80;
 	right: 1.25rem;
 	bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
-	display: inline-flex; align-items: center; gap: .6rem;
-	padding: .85rem 1.35rem; border-radius: 999px;
+	display: inline-flex; align-items: center;
+	height: 3.75rem; padding: 0; border-radius: 999px;
 	background: var(--wp--preset--color--volt);
 	color: var(--wp--preset--color--void);
-	font-size: var(--wp--preset--font-size--sm);
-	font-weight: 700; letter-spacing: -.01em; text-decoration: none;
+	text-decoration: none;
 	box-shadow: 0 10px 30px rgba(7, 8, 10, .35);
-	transition: transform .35s var(--zk-ease-out), background .3s,
-	            box-shadow .35s var(--zk-ease-out);
+	transition: box-shadow .4s var(--zk-ease-out), transform .4s var(--zk-ease-out);
 	animation: zk-ping-in .5s var(--zk-ease-out) 1.2s both;
 }
 .zk-ping:hover, .zk-ping:focus-visible {
 	transform: translateY(-3px);
-	background: var(--wp--preset--color--paper);
+	box-shadow: 0 18px 44px rgba(7, 8, 10, .45);
 	color: var(--wp--preset--color--void);
-	box-shadow: 0 16px 40px rgba(7, 8, 10, .45);
-}
-.zk-ping__dot {
-	width: 7px; height: 7px; border-radius: 50%; flex: none;
-	background: var(--wp--preset--color--void);
 }
 
-/* The ping itself: a ring leaves the pill, expands, fades, and then nothing
- * happens for four seconds. Drawn in `ink`, not `volt` — the ring travels out
+.zk-ping__mark {
+	width: 3.75rem; height: 3.75rem; flex: none;
+	display: grid; place-items: center;
+}
+/* The mark's viewBox is 74.5 × 68.5. A square box plus the default
+   preserveAspectRatio letterboxes it rather than stretching it. */
+.zk-ping__mark svg { width: 1.7rem; height: 1.7rem; display: block; }
+
+.zk-ping__label {
+	max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap;
+	font-size: var(--wp--preset--font-size--sm);
+	font-weight: 700; letter-spacing: -.01em;
+	transition: max-width .45s var(--zk-ease-out), opacity .3s ease,
+	            padding-right .45s var(--zk-ease-out);
+}
+.zk-ping:hover .zk-ping__label,
+.zk-ping:focus-visible .zk-ping__label {
+	max-width: 12rem; opacity: 1; padding-right: 1.5rem;
+}
+
+/* The ping. A ring leaves the button, expands and fades, and then nothing
+ * happens for six seconds. Drawn in `ink`, not `volt` — the ring travels out
  * over the page, and every template except the brief band is `paper`, where a
  * volt ring measures about 1.2:1 and is simply not there. */
 .zk-ping::after {
 	content: ""; position: absolute; inset: -2px;
 	border: 2px solid var(--wp--preset--color--ink);
 	border-radius: 999px; pointer-events: none; opacity: 0;
-	animation: zk-ping-out 5s var(--zk-ease-out) 2s infinite;
+	animation: zk-ping-out 7s var(--zk-ease-out) 2s infinite;
 }
+.zk-dark .zk-ping::after { border-color: var(--wp--preset--color--volt); }
 /* Once someone is on it, stop asking for their attention. */
 .zk-ping:hover::after, .zk-ping:focus-visible::after { animation: none; opacity: 0; }
 
 @keyframes zk-ping-in {
-	from { opacity: 0; transform: translateY(14px) scale(.94); }
+	from { opacity: 0; transform: translateY(14px) scale(.9); }
 	to   { opacity: 1; transform: none; }
 }
 @keyframes zk-ping-out {
-	0%   { transform: scale(1);    opacity: .55; }
-	14%  { transform: scale(1.28); opacity: 0; }
-	100% { transform: scale(1.28); opacity: 0; }
+	0%  { transform: scale(1);    opacity: .5; }
+	12% { transform: scale(1.22); opacity: 0; }
+	100%{ transform: scale(1.22); opacity: 0; }
 }
-
-/* On a dark band the ink ring disappears; swap it for volt, which reads there. */
-.zk-dark .zk-ping::after { border-color: var(--wp--preset--color--volt); }
 
 @media (max-width: 560px) {
 	.zk-ping {
 		right: 1rem; bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
-		padding: .78rem 1.15rem;
+		height: 3.4rem;
 	}
+	.zk-ping__mark { width: 3.4rem; height: 3.4rem; }
 }
 @media (prefers-reduced-motion: reduce) {
 	.zk-ping { animation: none; }
 	.zk-ping::after { animation: none; opacity: 0; }
+	.zk-ping__label { transition: none; }
 }
 @media print { .zk-ping { display: none; } }
