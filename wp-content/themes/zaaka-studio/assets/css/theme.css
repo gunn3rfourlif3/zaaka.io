@@ -1403,3 +1403,61 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 	.zk-ping__label { transition: none; }
 }
 @media print { .zk-ping { display: none; } }
+
+/* --------------------------------------------- links inside a dark band -- */
+/*
+ * theme.json sets elements.link to `ink`, hovering to `moss`. Both are chosen
+ * for a paper page and neither survives a dark ground: ink on void is 1.4:1 and
+ * moss is 1.9:1, so hello@zaaka.io was rendering as a barely-there smudge.
+ *
+ * Same shape as the heading bug in GOTCHAS 12 — an element colour set in
+ * theme.json is explicit and beats inheritance, so every element type that
+ * carries its own colour has to be restated when a dark band is introduced.
+ * Buttons are excluded: they bring their own ground with them.
+ */
+.zk-brief-wrap a:not(.wp-block-button__link):not(.zk-btn),
+.zk-band a:not(.wp-block-button__link):not(.zk-btn),
+.is-style-band a:not(.wp-block-button__link):not(.zk-btn) {
+	color: var(--wp--preset--color--paper);
+	text-decoration-color: var(--wp--preset--color--mist);
+	text-decoration-thickness: 1px;
+	text-underline-offset: .22em;
+	transition: color .3s, text-decoration-color .3s;
+}
+.zk-brief-wrap a:not(.wp-block-button__link):not(.zk-btn):hover,
+.zk-band a:not(.wp-block-button__link):not(.zk-btn):hover,
+.is-style-band a:not(.wp-block-button__link):not(.zk-btn):hover,
+.zk-brief-wrap a:not(.wp-block-button__link):not(.zk-btn):focus-visible,
+.zk-band a:not(.wp-block-button__link):not(.zk-btn):focus-visible,
+.is-style-band a:not(.wp-block-button__link):not(.zk-btn):focus-visible {
+	color: var(--wp--preset--color--volt);
+	text-decoration-color: var(--wp--preset--color--volt);
+}
+
+/* ------------------------------------------------------- the address ----- */
+/*
+ * The one address on the site people are asked to write to, so it is set as a
+ * piece of display type rather than a line of body copy: the display stack,
+ * large, tightly tracked, with the underline pulled off the baseline so the
+ * descenders in the domain are not cut through. No web font — the theme ships
+ * none on purpose, and this is a treatment rather than a typeface.
+ */
+.zk-address { margin: 0 0 .7rem; }
+.zk-address a {
+	font-family: var(--wp--preset--font-family--display);
+	font-size: var(--wp--preset--font-size--xxl);
+	font-weight: 700;
+	letter-spacing: -.03em;
+	line-height: 1.15;
+	text-decoration: none;
+	border-bottom: 1px solid var(--wp--preset--color--hairline);
+	padding-bottom: .08em;
+	transition: color .3s, border-color .3s;
+}
+.zk-address a:hover, .zk-address a:focus-visible {
+	color: var(--wp--preset--color--volt);
+	border-bottom-color: var(--wp--preset--color--volt);
+}
+@media (max-width: 560px) {
+	.zk-address a { font-size: var(--wp--preset--font-size--xl); }
+}

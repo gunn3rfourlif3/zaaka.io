@@ -246,6 +246,14 @@ the interactive part. And when adding a dark band anywhere in this theme, set
 heading colour explicitly — `elements.heading` in `theme.json` means every
 heading arrives `ink` regardless of what it sits on.
 
+**It is not only headings.** Every element type given a colour under
+`styles.elements` in `theme.json` has the same problem, because an element
+colour is explicit and inheritance never reaches it. Links bit next:
+`elements.link` is `ink`, hovering to `moss`, which on `void` measure 1.4:1 and
+1.9:1 — `hello@zaaka.io` rendered as a smudge on the rebuilt Contact page. When
+introducing a dark band, go through `styles.elements` and restate every one of
+them, rather than fixing whichever is noticed first.
+
 ---
 
 ## 13. A harness without the preset classes ignores every colour you set
