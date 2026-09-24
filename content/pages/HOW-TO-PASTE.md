@@ -75,3 +75,19 @@ Each project has a **Case study summary** box under the editor: the problem,
 what we did, the result, optional result figures (`figure | label`, one per
 line) and an optional testimonial. Empty fields render nothing. Only real
 numbers and real quotes, used with the person's permission, go in here.
+
+## Banded pages need the full-width template
+
+Services, Approach, About and Contact are built as one full-bleed dark band.
+The band paints its own ground and breaks out of the content column on any
+template, but the default page template also prints the post title as a large
+heading *above* the band, on white. Set each of these four to **"Page — full
+width"**.
+
+In a block theme that control is **Settings gear → the `Page` tab → Summary →
+Template → Swap template**. There is no Page Attributes box; that is the
+classic editor.
+
+Because the full-width template does not print the post title, each of those
+pages now carries its own `<h1>` in the markup. Do not delete it — without it
+the page has no h1 at all.
