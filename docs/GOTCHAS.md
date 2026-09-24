@@ -265,3 +265,36 @@ harness has to emit what WordPress emits: the layout classes (GOTCHAS 11), the
 preset utility classes, and `theme.json`'s element styles (GOTCHAS 12). Any one
 of the three missing means the preview is a different page from the site, and
 the measurements are worth nothing.
+
+---
+
+## 14. A fixed element cannot ask what is behind it
+
+**Symptom.** The floating brief button's pulse ring was invisible over dark
+sections. `.zk-dark .zk-ping::after` had been written to handle exactly that,
+and did nothing.
+
+**Cause.** Two compounding mistakes.
+
+The selector was dead: the button is printed on `wp_footer` at body level, so it
+has no `.zk-dark` ancestor regardless of what it is floating over. A fixed
+element's DOM position has nothing to do with what is behind it on screen, and
+CSS has no way to ask.
+
+The fade made it worse. The ring faded by animating `opacity`, which scales
+everything in the element down together — so a "dark hairline for light
+backgrounds" was never darker than the ring's current opacity allowed. Measured
+at 1.66:1 on white.
+
+**Lesson.** Anything `position: fixed` has to be legible unaided, because it
+will pass over every ground the site has. The fix is a volt ring with an ink
+hairline on both edges: volt carries it on dark, the hairline carries it on
+light, and neither depends on knowing the backdrop. Peak opacity is 1 and the
+fade starts from there, so contrast is not divided by the animation.
+
+**Measuring it needs a differential test.** Contrast against an assumed
+background is not enough when a drop shadow, an antialiased edge and the ring
+all sit in the same few pixels — the first three attempts measured the button's
+own shadow and its Z glyph and reported confident nonsense. Render the same
+frame with the ring and without it, and compare each pixel to itself: 15.26:1 on
+paper, 16.52:1 on void, 14.71:1 on surface.

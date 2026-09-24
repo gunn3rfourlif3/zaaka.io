@@ -16,7 +16,7 @@
 <!-- wp:paragraph {"className":"is-style-eyebrow"} --><p class="is-style-eyebrow">The first step</p><!-- /wp:paragraph -->
 <!-- wp:heading {"level":2,"fontSize":"xxxl"} --><h2 class="wp-block-heading has-xxxl-font-size">Discovery Sprint.</h2><!-- /wp:heading -->
 <!-- wp:paragraph {"textColor":"muted","fontSize":"lg"} --><p class="has-muted-color has-text-color has-lg-font-size">Find out what you are actually building, and what it will cost, before you commit to building it. Two weeks, a fixed price, and something useful at the end whether you hire us for the build or not.</p><!-- /wp:paragraph -->
-<!-- wp:paragraph {"className":"zk-sprint__price"} --><p class="zk-sprint__price"><strong>R12,500</strong> <span class="has-muted-color has-text-color">fixed · 2 weeks</span></p><!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"zk-sprint__price"} --><p class="zk-sprint__price"><strong>Two weeks</strong> <span class="has-muted-color has-text-color">at a fixed price</span></p><!-- /wp:paragraph -->
 <!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}}} -->
 <div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--30)">
 <!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/book/">Book an intro call</a></div><!-- /wp:button -->
@@ -35,7 +35,7 @@
 <!-- wp:list-item --><li><strong>A clickable prototype</strong> of the screens that matter most.</li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><strong>A fixed quote for the build,</strong> in phases you can stop between.</li><!-- /wp:list-item -->
 </ul><!-- /wp:list -->
-<!-- wp:paragraph {"textColor":"muted","fontSize":"sm"} --><p class="has-muted-color has-text-color has-sm-font-size">Go ahead with the build and the R12,500 comes off it. Don't, and everything we made is yours to take to someone else.</p><!-- /wp:paragraph -->
+<!-- wp:paragraph {"textColor":"muted","fontSize":"sm"} --><p class="has-muted-color has-text-color has-sm-font-size">Go ahead with the build and the fee comes off it. Don't, and everything we made is yours to take to someone else.</p><!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->
 

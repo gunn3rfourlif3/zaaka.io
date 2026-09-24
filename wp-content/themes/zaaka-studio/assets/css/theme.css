@@ -1361,11 +1361,22 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
  * volt ring measures about 1.2:1 and is simply not there. */
 .zk-ping::after {
 	content: ""; position: absolute; inset: -2px;
-	border: 2px solid var(--wp--preset--color--ink);
+	border: 2px solid var(--wp--preset--color--volt);
 	border-radius: 999px; pointer-events: none; opacity: 0;
+	/* A hairline of ink on both edges of the volt ring, so the ring carries its
+	 * own contrast rather than depending on what is behind it. The button is
+	 * fixed and floats over whatever scrolls past — paper on most of the site,
+	 * void inside a band, ink over the footer — and no single colour survives
+	 * all three. Volt does the work on dark (16.4:1), the ink hairline does it
+	 * on light (about 20:1).
+	 *
+	 * The previous attempt was `.zk-dark .zk-ping::after`, which never matched:
+	 * the button is printed at body level on wp_footer, so it has no .zk-dark
+	 * ancestor no matter what it happens to be floating over. A fixed element
+	 * cannot ask what is underneath it, so it has to be legible unaided. */
+	box-shadow: 0 0 0 1.5px rgba(7, 8, 10, .9), inset 0 0 0 1.5px rgba(7, 8, 10, .9);
 	animation: zk-ping-out 7s var(--zk-ease-out) 2s infinite;
 }
-.zk-dark .zk-ping::after { border-color: var(--wp--preset--color--volt); }
 /* Once someone is on it, stop asking for their attention. */
 .zk-ping:hover::after, .zk-ping:focus-visible::after { animation: none; opacity: 0; }
 
@@ -1374,9 +1385,9 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 	to   { opacity: 1; transform: none; }
 }
 @keyframes zk-ping-out {
-	0%  { transform: scale(1);    opacity: .5; }
-	12% { transform: scale(1.22); opacity: 0; }
-	100%{ transform: scale(1.22); opacity: 0; }
+	0%  { transform: scale(1);    opacity: 1; }
+	14% { transform: scale(1.24); opacity: 0; }
+	100%{ transform: scale(1.24); opacity: 0; }
 }
 
 @media (max-width: 560px) {
