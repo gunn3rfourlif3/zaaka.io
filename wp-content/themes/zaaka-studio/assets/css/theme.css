@@ -1304,81 +1304,85 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 
 /* ===================================== the standing invitation (ping) === */
 /*
- * A round volt button carrying the Zaaka Z, sitting where a chat widget would,
- * because that is where people look for a way to start. It is a link, not a
- * widget: no third-party script, nothing to consent to, and it works with
- * JavaScript off. inc/ping.php decides where it appears.
+ * A volt pill reading "Start a brief", sitting where a chat widget would. On
+ * hover or keyboard focus it collapses to a circle carrying the Zaaka Z.
  *
- * At rest it is a circle. On hover or keyboard focus it grows sideways into a
- * pill and the label arrives. The growth is a max-width transition on the
- * label rather than a width transition on the button, because `width: auto`
- * does not animate — the button is simply as wide as its contents, and the
- * contents are what changes size.
+ * The anchor keeps a fixed width and only the pill inside it moves. That is not
+ * cosmetic: a control that shrinks under the pointer can pull its own edge out
+ * from under the cursor, which drops :hover, which re-expands it, which catches
+ * the cursor again — a flicker loop at whatever rate the transition runs. The
+ * anchor is the hit area and never changes size, so hover is stable no matter
+ * where in it the pointer sits; the pill collapses rightward inside it.
+ *
+ * Touch devices have no hover, so the button simply stays as the labelled pill
+ * there — which is the better state for a phone anyway.
  */
 
 .zk-ping {
 	position: fixed; z-index: 80;
 	right: 1.25rem;
 	bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
-	display: inline-flex; align-items: center;
-	height: 3.75rem; padding: 0; border-radius: 999px;
-	background: var(--wp--preset--color--volt);
-	color: var(--wp--preset--color--void);
+	display: flex; align-items: center; justify-content: flex-end;
+	width: 10.5rem; height: 3.75rem;
 	text-decoration: none;
-	box-shadow: 0 10px 30px rgba(7, 8, 10, .35);
-	transition: box-shadow .4s var(--zk-ease-out), transform .4s var(--zk-ease-out);
 	animation: zk-ping-in .5s var(--zk-ease-out) 1.2s both;
 }
-.zk-ping:hover, .zk-ping:focus-visible {
+
+.zk-ping__pill {
+	position: relative;
+	display: inline-flex; align-items: center;
+	height: 3.75rem; border-radius: 999px;
+	background: var(--wp--preset--color--volt);
+	color: var(--wp--preset--color--void);
+	box-shadow: 0 10px 30px rgba(7, 8, 10, .35);
+	transition: transform .4s var(--zk-ease-out), box-shadow .4s var(--zk-ease-out);
+}
+.zk-ping:hover .zk-ping__pill,
+.zk-ping:focus-visible .zk-ping__pill {
 	transform: translateY(-3px);
 	box-shadow: 0 18px 44px rgba(7, 8, 10, .45);
-	color: var(--wp--preset--color--void);
+}
+.zk-ping:focus-visible .zk-ping__pill {
+	outline: 2px solid var(--wp--preset--color--volt); outline-offset: 4px;
 }
 
+/* Hidden at rest, arriving as the label leaves. The mark's viewBox is
+   74.5 × 68.5; a square box plus the default preserveAspectRatio letterboxes
+   it rather than stretching it. */
 .zk-ping__mark {
-	width: 3.75rem; height: 3.75rem; flex: none;
-	display: grid; place-items: center;
+	width: 0; opacity: 0; overflow: hidden; flex: none;
+	height: 3.75rem; display: grid; place-items: center;
+	transition: width .45s var(--zk-ease-out), opacity .3s ease;
 }
-/* The mark's viewBox is 74.5 × 68.5. A square box plus the default
-   preserveAspectRatio letterboxes it rather than stretching it. */
 .zk-ping__mark svg { width: 1.7rem; height: 1.7rem; display: block; }
 
 .zk-ping__label {
-	max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap;
+	max-width: 12rem; opacity: 1; overflow: hidden; white-space: nowrap;
+	padding-inline: 1.5rem;
 	font-size: var(--wp--preset--font-size--sm);
 	font-weight: 700; letter-spacing: -.01em;
-	transition: max-width .45s var(--zk-ease-out), opacity .3s ease,
-	            padding-right .45s var(--zk-ease-out);
-}
-.zk-ping:hover .zk-ping__label,
-.zk-ping:focus-visible .zk-ping__label {
-	max-width: 12rem; opacity: 1; padding-right: 1.5rem;
+	transition: max-width .45s var(--zk-ease-out), opacity .25s ease,
+	            padding-inline .45s var(--zk-ease-out);
 }
 
-/* The ping. A ring leaves the button, expands and fades, and then nothing
- * happens for six seconds. Drawn in `ink`, not `volt` — the ring travels out
- * over the page, and every template except the brief band is `paper`, where a
- * volt ring measures about 1.2:1 and is simply not there. */
-.zk-ping::after {
+.zk-ping:hover .zk-ping__mark,
+.zk-ping:focus-visible .zk-ping__mark { width: 3.75rem; opacity: 1; }
+.zk-ping:hover .zk-ping__label,
+.zk-ping:focus-visible .zk-ping__label { max-width: 0; opacity: 0; padding-inline: 0; }
+
+/* The ping. A ring leaves the pill, expands and fades, then nothing happens for
+ * six seconds. Volt with an ink hairline on both edges, so it carries its own
+ * contrast: the button is fixed and floats over paper, void and ink by turns,
+ * and no single colour survives all three. */
+.zk-ping__pill::after {
 	content: ""; position: absolute; inset: -2px;
 	border: 2px solid var(--wp--preset--color--volt);
 	border-radius: 999px; pointer-events: none; opacity: 0;
-	/* A hairline of ink on both edges of the volt ring, so the ring carries its
-	 * own contrast rather than depending on what is behind it. The button is
-	 * fixed and floats over whatever scrolls past — paper on most of the site,
-	 * void inside a band, ink over the footer — and no single colour survives
-	 * all three. Volt does the work on dark (16.4:1), the ink hairline does it
-	 * on light (about 20:1).
-	 *
-	 * The previous attempt was `.zk-dark .zk-ping::after`, which never matched:
-	 * the button is printed at body level on wp_footer, so it has no .zk-dark
-	 * ancestor no matter what it happens to be floating over. A fixed element
-	 * cannot ask what is underneath it, so it has to be legible unaided. */
 	box-shadow: 0 0 0 1.5px rgba(7, 8, 10, .9), inset 0 0 0 1.5px rgba(7, 8, 10, .9);
 	animation: zk-ping-out 7s var(--zk-ease-out) 2s infinite;
 }
-/* Once someone is on it, stop asking for their attention. */
-.zk-ping:hover::after, .zk-ping:focus-visible::after { animation: none; opacity: 0; }
+.zk-ping:hover .zk-ping__pill::after,
+.zk-ping:focus-visible .zk-ping__pill::after { animation: none; opacity: 0; }
 
 @keyframes zk-ping-in {
 	from { opacity: 0; transform: translateY(14px) scale(.9); }
@@ -1395,12 +1399,12 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 		right: 1rem; bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
 		height: 3.4rem;
 	}
-	.zk-ping__mark { width: 3.4rem; height: 3.4rem; }
+	.zk-ping__pill, .zk-ping__mark { height: 3.4rem; }
 }
 @media (prefers-reduced-motion: reduce) {
 	.zk-ping { animation: none; }
-	.zk-ping::after { animation: none; opacity: 0; }
-	.zk-ping__label { transition: none; }
+	.zk-ping__pill::after { animation: none; opacity: 0; }
+	.zk-ping__mark, .zk-ping__label, .zk-ping__pill { transition: none; }
 }
 @media print { .zk-ping { display: none; } }
 

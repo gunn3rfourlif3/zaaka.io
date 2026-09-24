@@ -59,8 +59,24 @@
 <!-- /wp:group -->
 
 <!-- wp:group {"className":"is-style-panel zk-reveal","layout":{"type":"constrained"}} -->
-<div class="wp-block-group is-style-panel zk-reveal" id="design">
+<div class="wp-block-group is-style-panel zk-reveal" id="workflow">
 <!-- wp:paragraph {"className":"zk-num"} --><p class="zk-num">05</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":3,"textColor":"paper","fontSize":"xl"} --><h3 class="wp-block-heading has-paper-color has-text-color has-xl-font-size">Workflow automation</h3><!-- /wp:heading -->
+<!-- wp:paragraph {"textColor":"mist","fontSize":"sm"} --><p class="has-mist-color has-text-color has-sm-font-size">The work that happens between systems — approvals, handovers, reminders, the spreadsheet somebody maintains by hand. Automated where it is the same every time.</p><!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"is-style-panel zk-reveal","layout":{"type":"constrained"}} -->
+<div class="wp-block-group is-style-panel zk-reveal" id="agents">
+<!-- wp:paragraph {"className":"zk-num"} --><p class="zk-num">06</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":3,"textColor":"paper","fontSize":"xl"} --><h3 class="wp-block-heading has-paper-color has-text-color has-xl-font-size">AI agent development</h3><!-- /wp:heading -->
+<!-- wp:paragraph {"textColor":"mist","fontSize":"sm"} --><p class="has-mist-color has-text-color has-sm-font-size">Agents built against a real task with a measurable outcome, a person in the loop where being wrong is expensive, and an honest answer when a rule would do the job.</p><!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"is-style-panel zk-reveal","layout":{"type":"constrained"}} -->
+<div class="wp-block-group is-style-panel zk-reveal" id="design">
+<!-- wp:paragraph {"className":"zk-num"} --><p class="zk-num">07</p><!-- /wp:paragraph -->
 <!-- wp:heading {"level":3,"textColor":"paper","fontSize":"xl"} --><h3 class="wp-block-heading has-paper-color has-text-color has-xl-font-size">Design systems &amp; brand</h3><!-- /wp:heading -->
 <!-- wp:paragraph {"textColor":"mist","fontSize":"sm"} --><p class="has-mist-color has-text-color has-sm-font-size">Identity, interface libraries and the documentation that keeps them alive — so the tenth screen and the hundredth page still look like the same company made them.</p><!-- /wp:paragraph -->
 </div>
@@ -68,7 +84,7 @@
 
 <!-- wp:group {"className":"is-style-panel zk-reveal","layout":{"type":"constrained"}} -->
 <div class="wp-block-group is-style-panel zk-reveal" id="performance">
-<!-- wp:paragraph {"className":"zk-num"} --><p class="zk-num">06</p><!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"zk-num"} --><p class="zk-num">08</p><!-- /wp:paragraph -->
 <!-- wp:heading {"level":3,"textColor":"paper","fontSize":"xl"} --><h3 class="wp-block-heading has-paper-color has-text-color has-xl-font-size">Performance &amp; accessibility</h3><!-- /wp:heading -->
 <!-- wp:paragraph {"textColor":"mist","fontSize":"sm"} --><p class="has-mist-color has-text-color has-sm-font-size">Speed, Core Web Vitals, WCAG conformance and technical SEO — measured before we call anything finished, on new builds and rescues alike.</p><!-- /wp:paragraph -->
 </div>

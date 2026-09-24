@@ -149,7 +149,7 @@ function zaaka_brief_form() {
 				<div class="zk-brief-main">
 
 					<fieldset class="zk-brief-step" data-step="1">
-						<legend class="zk-q"><?php esc_html_e( 'What are we talking about?', 'zaaka-studio' ); ?></legend>
+						<legend class="zk-q"><?php esc_html_e( 'What are we building?', 'zaaka-studio' ); ?></legend>
 						<p class="zk-help"><?php esc_html_e( 'Pick the closest one. It decides which of the next questions you actually see — most people skip about a third of them.', 'zaaka-studio' ); ?></p>
 						<div class="zk-routes">
 							<?php $n = 0; foreach ( $routes as $key => $r ) : $n++; ?>

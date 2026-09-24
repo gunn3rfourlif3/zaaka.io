@@ -7,7 +7,8 @@
  */
 $zaaka_items = array(
 	'Web apps', 'SaaS platforms', 'WordPress', 'Design systems', 'E-commerce',
-	'APIs &amp; integrations', 'Mobile', 'Payments', 'Dashboards', 'Automation',
+	'APIs &amp; integrations', 'Mobile', 'Payments', 'Dashboards', 'Workflow automation',
+	'AI agents',
 	'Brand &amp; identity', 'Technical SEO',
 );
 $zaaka_run = '';
