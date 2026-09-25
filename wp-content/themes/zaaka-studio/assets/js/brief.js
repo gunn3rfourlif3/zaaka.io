@@ -18,6 +18,7 @@
 	root.classList.add("zk-brief-js");
 
 	var current = 1;
+	var seen = {};
 	var route = null;
 	var bar = document.querySelector(".zk-progress__bar");
 	var nav = {
@@ -28,8 +29,6 @@
 	};
 
 	/* Steps a route skips outright — the third of the form nobody sees. */
-	var SKIP = { site: [4], rescue: [4], integrate: [3, 4], product: [], unsure: [] };
-
 	var ROUTE_PHRASE = {
 		product: "planning a new product or platform",
 		site: "planning a site that sells something that already exists",
@@ -39,83 +38,159 @@
 	};
 
 	/* ---------------------------------------------------------- the panel -- */
-	/* Built here rather than in PHP: with no JavaScript there is no running
-	   commentary to show, and an empty skeleton would just be noise. */
-	var SLOTS = [
-		["company", "Someone", "%s"],
-		["route", "working out what they need", " is %s."],
-		["problem", "the problem hasn't been described yet", " Right now, %s."],
-		["donothing", "it's unclear what happens", " Left twelve months, %s."],
-		["audience", "an audience we don't know yet", " It's for %s"],
-		["count", "an unknown number", ", roughly %s of them."],
-		["money", "a route not yet stated", " It earns through %s."],
-		["metric", "a number not yet given", " Success looks like %s."],
-		["url", "nothing on record", " Today there is %s"],
-		["owner", "ownership unstated", ", and %s."],
-		["scope", "to be chosen", " First release: %s."],
-		["timeline", "a timeframe not set", " Live in %s"],
-		["datereal", "realism unknown", " — %s."],
-		["budget", "not stated", " Budget %s."],
-		["decider", "sign-off unclear", " %s,"],
-		["clienttime", "an unknown amount of time", " with %s a week from your side."]
+	/* The brief starts blank and gains a line each time one can honestly be
+	   written. It used to render the whole skeleton up front with placeholders —
+	   "the problem hasn't been described yet", "an audience we don't know yet" —
+	   which described absence in the voice of a form validator, and made the
+	   thing feel like a machine waiting to be fed. A blank page that fills is
+	   friendlier and more honest: nothing is claimed before it is known.
+
+	   It is also why the first question is now a name. Every line is written
+	   about a person, and "Thandi is planning a new product" reads like someone
+	   listening; "Someone is planning a new product" reads like a database. */
+
+	var answers = {};
+
+	function firstName(n) { return (n || "").trim().split(/\s+/)[0] || ""; }
+	function lower(s) { return s ? s.charAt(0).toLowerCase() + s.slice(1) : s; }
+	function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+	function t(x) { return { kind: "text", s: x }; }
+	function v(x) { return { kind: "val", s: x }; }
+
+	/* A line appears only once every key it needs has an answer. Optional extras
+	   fold into the same sentence rather than adding a stub line of their own. */
+	var LINES = [
+		{ need: ["route"], build: function (a) {
+			return [t((firstName(a.name) || "Someone") + " is "), v(a.route), t(".")]; } },
+
+		{ need: ["problem"], build: function (a) {
+			return [t("Right now, "), v(lower(a.problem)), t(".")]; } },
+
+		{ need: ["donothing"], build: function (a) {
+			return [t("Leave it twelve months and "), v(lower(a.donothing)), t(".")]; } },
+
+		{ need: ["audience"], build: function (a) {
+			var o = [t("It is for "), v(a.audience)];
+			if (a.count) { o.push(t(" — about "), v(a.count), t(" of them")); }
+			return o.concat(t(".")); } },
+
+		{ need: ["money"], build: function (a) {
+			var o = [t("It earns through "), v(a.money)];
+			if (a.metric) { o.push(t(", and success looks like "), v(lower(a.metric))); }
+			return o.concat(t(".")); } },
+
+		{ need: ["url"], build: function (a) {
+			var o = [t("Today there is "), v(a.url)];
+			if (a.owner) { o.push(t(", and "), v(a.owner)); }
+			return o.concat(t(".")); } },
+
+		{ need: ["scope"], build: function (a) {
+			return [t("First release: "), v(a.scope), t(".")]; } },
+
+		{ need: ["timeline"], build: function (a) {
+			var o = [t("Live in "), v(a.timeline)];
+			if (a.datereal) { o.push(t(" — "), v(a.datereal)); }
+			return o.concat(t(".")); } },
+
+		{ need: ["budget"], build: function (a) {
+			return [t("Budget "), v(a.budget), t(".")]; } },
+
+		{ need: ["decider"], build: function (a) {
+			var o = [v(cap(a.decider))];
+			if (a.clienttime) { o.push(t(", with "), v(a.clienttime), t(" from your side")); }
+			return o.concat(t(".")); } }
 	];
 
 	var panel = document.querySelector(".zk-brief-panel");
 	panel.hidden = false;
 	panel.innerHTML =
-		'<div class="zk-brief__head">' +
-			'<h2 class="zk-brief__title">Your brief</h2>' +
-			'<span class="zk-brief__pct" aria-live="polite">0% written</span>' +
-		'</div>' +
-		'<div class="zk-brief__body"></div>' +
+		'<div class="zk-brief__head"><h2 class="zk-brief__title">Your brief</h2></div>' +
+		'<div class="zk-brief__body"><p class="zk-brief__empty"></p></div>' +
 		'<div class="zk-stamp" hidden>Brief complete</div>';
 
-	var body = panel.querySelector(".zk-brief__body");
-	var pctEl = panel.querySelector(".zk-brief__pct");
-	var stamp = panel.querySelector(".zk-stamp");
+	var body   = panel.querySelector(".zk-brief__body");
+	var empty  = panel.querySelector(".zk-brief__empty");
+	var stamp  = panel.querySelector(".zk-stamp");
+	var lineEl = [];
 
-	SLOTS.forEach(function (s) {
-		var parts = s[2].split("%s");
-		body.appendChild(document.createTextNode(parts[0]));
-		var span = document.createElement("span");
-		span.className = "zk-slot";
-		span.dataset.slot = s[0];
-		span.textContent = s[1];
-		body.appendChild(span);
-		if (parts[1]) body.appendChild(document.createTextNode(parts[1]));
-	});
+	empty.textContent = "Blank for now. It fills in as you answer.";
 
-	function write(name, text) {
-		var el = body.querySelector('[data-slot="' + name + '"]');
-		if (!el || !text) return;
-		el.classList.add("is-set");
+	/* Type the sentence as plain text, then swap in the marked-up version once
+	   it is complete. The two are character-identical, so the swap is invisible
+	   — it just lets the values keep their own colour without typing tags. */
+	function paint(el, parts, animate) {
+		var plain = parts.map(function (p) { return p.s; }).join("");
 
-		if (reduce) { el.textContent = text; pct(); return; }
+		function markup() {
+			el.textContent = "";
+			parts.forEach(function (p) {
+				if (p.kind === "text") { el.appendChild(document.createTextNode(p.s)); return; }
+				var span = document.createElement("span");
+				span.className = "zk-brief__val" + (animate && !reduce ? " is-writing" : "");
+				span.textContent = p.s;
+				el.appendChild(span);
+			});
+			if (animate && !reduce) {
+				window.setTimeout(function () {
+					Array.prototype.forEach.call(el.querySelectorAll(".is-writing"), function (sp) {
+						sp.classList.remove("is-writing");
+					});
+				}, 420);
+			}
+		}
 
-		el.classList.add("is-writing");
+		if (!animate || reduce) { markup(); return; }
+
 		var i = 0;
-		var speed = text.length > 44 ? 6 : 16;
+		var speed = plain.length > 60 ? 8 : 14;
 		(function tick() {
-			el.textContent = text.slice(0, ++i);
-			if (i < text.length) { window.setTimeout(tick, speed); }
-			else { window.setTimeout(function () { el.classList.remove("is-writing"); }, 420); }
+			el.textContent = plain.slice(0, ++i);
+			if (i < plain.length) { window.setTimeout(tick, speed); } else { markup(); }
 		})();
-		pct();
 	}
 
-	function pct() {
-		var all = body.querySelectorAll(".zk-slot").length;
-		var set = body.querySelectorAll(".zk-slot.is-set").length;
-		var p = Math.round((set / all) * 100);
-		pctEl.textContent = p + "% written";
-		if (bar) bar.style.width = Math.max(p, ((current - 1) / steps.length) * 100) + "%";
+	function renderLines() {
+		LINES.forEach(function (line, i) {
+			var ready = line.need.every(function (k) { return answers[k]; });
+			if (!ready) { return; }
+
+			var parts = line.build(answers);
+			var plain = parts.map(function (p) { return p.s; }).join("");
+			var have  = lineEl[i];
+
+			if (have && have.text === plain) { return; }
+			if (have) { have.text = plain; paint(have.el, parts, false); return; }
+
+			var el = document.createElement("p");
+			el.className = "zk-brief__line";
+
+			/* Keep document order even when an earlier line is answered later —
+			   going back and filling in a skipped step must not append to the end. */
+			var after = null;
+			for (var j = i + 1; j < LINES.length; j++) {
+				if (lineEl[j]) { after = lineEl[j].el; break; }
+			}
+			body.insertBefore(el, after);
+			lineEl[i] = { el: el, text: plain };
+
+			if (empty && empty.parentNode) { empty.parentNode.removeChild(empty); }
+			paint(el, parts, true);
+		});
+	}
+
+	function record(key, value) {
+		if (!value || answers[key] === value) { return; }
+		answers[key] = value;
+		renderLines();
 	}
 
 	/* ------------------------------------------------------------ stepping -- */
 
 	function visible() {
-		var skip = (route && SKIP[route]) || [];
-		return steps.filter(function (s) { return skip.indexOf(+s.dataset.step) === -1; });
+		return steps.filter(function (s) {
+			var skip = (s.dataset.routeSkip || "").split(/\s+/);
+			return !route || skip.indexOf(route) === -1;
+		});
 	}
 
 	function show(n) {
@@ -127,6 +202,7 @@
 		function swap() {
 			steps.forEach(function (s) { s.hidden = true; s.classList.remove("is-leaving"); });
 			target.hidden = false;
+			seen[+target.dataset.step] = true;
 
 			var last = list.indexOf(target) === list.length - 1;
 			nav.back.hidden = list.indexOf(target) === 0;
@@ -136,7 +212,10 @@
 
 			var focusable = target.querySelector("textarea, input:not([type=hidden]):not(.zk-sr), select, .zk-route");
 			if (focusable && focusable.focus) { try { focusable.focus({ preventScroll: true }); } catch (e) {} }
-			pct();
+			if (bar) {
+				var at = list.indexOf(target);
+				bar.style.width = ( at / Math.max( list.length - 1, 1 ) * 100 ) + "%";
+			}
 		}
 
 		if (prev && prev !== target && !reduce) {
@@ -173,7 +252,7 @@
 	form.querySelectorAll('[data-route]').forEach(function (input) {
 		input.addEventListener("change", function () {
 			route = input.dataset.route;
-			write("route", ROUTE_PHRASE[route]);
+			record("route", ROUTE_PHRASE[route]);
 			buildScope(SCOPE[route] || SCOPE.generic || []);
 
 			if (!reduce) {
@@ -304,18 +383,29 @@
 
 	/* --------------------------------------------- commit answers to the brief -- */
 
+	/* Only answers from steps the visitor has actually reached count. The
+	   timeline and budget controls carry sensible defaults so they are usable
+	   the moment they appear — but a default is not an answer, and the panel
+	   was asserting "Live in about three months" before that question had been
+	   asked. Nothing is claimed before it is known, which is the whole premise
+	   of a brief that writes itself. */
+	function reached(el) {
+		var step = el && el.closest(".zk-brief-step");
+		return !!(step && seen[+step.dataset.step]);
+	}
+
 	function commit() {
-		["problem", "count", "metric", "company", "url"].forEach(function (id) {
+		["name", "problem", "count", "metric", "company", "url"].forEach(function (id) {
 			var el = form.querySelector("#zk-" + id);
-			if (el && el.value.trim()) write(id, el.value.trim());
+			if (el && el.value.trim() && reached(el)) record(id, el.value.trim());
 		});
 		["donothing", "audience", "money", "owner", "datereal", "decider", "clienttime"].forEach(function (name) {
 			var checked = form.querySelector('input[name="zk_' + name + '"]:checked');
-			if (checked) write(name, checked.value);
+			if (checked && reached(checked)) record(name, checked.value);
 		});
 		["timeline", "budget"].forEach(function (name) {
 			var sel = form.querySelector("#zk-" + name);
-			if (sel && sel.value) write(name, sel.value);
+			if (sel && sel.value && reached(sel)) record(name, sel.value);
 		});
 
 		var must = [], later = [];
@@ -324,7 +414,7 @@
 			if (s.value === "must") must.push(item);
 			else if (s.value === "later") later.push(item);
 		});
-		if (must.length) write("scope", must.join(", ") + (later.length ? "; later, " + later.join(", ") : ""));
+		if (must.length) record("scope", must.join(", ") + (later.length ? "; later, " + later.join(", ") : ""));
 	}
 
 	form.addEventListener("submit", function () {

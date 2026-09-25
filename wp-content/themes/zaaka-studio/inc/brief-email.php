@@ -101,8 +101,12 @@ function zaaka_brief_email_html( $values, $post_id, $audience = 'client' ) {
 	$who       = $values['company'] ? $values['company'] : $values['name'];
 
 	$eyebrow = $is_client ? __( 'Your brief', 'zaaka-studio' ) : __( 'New brief', 'zaaka-studio' );
+	$first   = trim( strtok( (string) $values['name'], ' ' ) );
 	$title   = $is_client
-		? __( 'Here is your brief.', 'zaaka-studio' )
+		? ( $first
+			/* translators: %s: the person's first name. */
+			? sprintf( __( 'Here is your brief, %s.', 'zaaka-studio' ), $first )
+			: __( 'Here is your brief.', 'zaaka-studio' ) )
 		: ( $who ? $who : __( 'A new brief', 'zaaka-studio' ) );
 
 	$intro = $is_client

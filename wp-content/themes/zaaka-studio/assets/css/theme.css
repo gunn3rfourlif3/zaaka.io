@@ -1177,25 +1177,40 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 	border-bottom: 1px solid var(--wp--preset--color--hairline);
 }
 .zk-brief__title { font-size: var(--wp--preset--font-size--lg); font-weight: 700; margin: 0; letter-spacing: -.02em; }
-.zk-brief__pct {
-	font-family: var(--wp--preset--font-family--mono);
-	font-size: var(--wp--preset--font-size--xs);
-	color: var(--wp--preset--color--volt); font-variant-numeric: tabular-nums;
-}
 .zk-brief__body {
 	font-size: var(--wp--preset--font-size--sm); line-height: 1.7;
 	color: var(--wp--preset--color--mist);
 }
 
-.zk-slot {
+/* The panel opens empty and gains a line at a time. The dashed placeholder
+ * slots this replaces described what was still missing, in the voice of a form
+ * validator — a machine waiting to be fed rather than someone taking notes. */
+.zk-brief__empty {
+	margin: 0;
+	font-size: var(--wp--preset--font-size--sm);
+	line-height: 1.7;
 	color: var(--wp--preset--color--mist);
-	border-bottom: 1px dashed var(--wp--preset--color--hairline);
-	padding-bottom: 1px;
-	transition: color .6s var(--zk-ease-out), border-color .6s;
+	opacity: .7;
 }
-.zk-slot.is-set { color: var(--wp--preset--color--paper); font-weight: 600; border-bottom-color: transparent; }
-/* Lands in volt, settles to paper. That settle is the "written" cue. */
-.zk-slot.is-writing { color: var(--wp--preset--color--volt); border-bottom-color: var(--wp--preset--color--volt); }
+.zk-brief__line {
+	margin: 0 0 .75rem;
+	font-size: var(--wp--preset--font-size--sm);
+	line-height: 1.7;
+	color: var(--wp--preset--color--mist);
+	animation: zk-line-in .45s var(--zk-ease-out) both;
+}
+.zk-brief__line:last-child { margin-bottom: 0; }
+@keyframes zk-line-in {
+	from { opacity: 0; transform: translateY(6px); }
+	to   { opacity: 1; transform: none; }
+}
+/* Values land in volt and settle to paper. That settle is the "written" cue. */
+.zk-brief__val {
+	color: var(--wp--preset--color--paper);
+	font-weight: 600;
+	transition: color .6s var(--zk-ease-out);
+}
+.zk-brief__val.is-writing { color: var(--wp--preset--color--volt); }
 
 .zk-stamp {
 	margin-top: var(--wp--preset--spacing--20);
@@ -1230,15 +1245,16 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 	background: var(--wp--preset--color--paper); border-color: var(--wp--preset--color--line); color: var(--wp--preset--color--ink);
 }
 .zk-light .zk-brief-panel { background: var(--wp--preset--color--chalk); border-color: var(--wp--preset--color--line); }
-.zk-light .zk-brief__body, .zk-light .zk-slot { color: var(--wp--preset--color--muted); }
-.zk-light .zk-slot.is-set { color: var(--wp--preset--color--ink); }
+.zk-light .zk-brief__body, .zk-light .zk-brief__line { color: var(--wp--preset--color--muted); }
+.zk-light .zk-brief__val { color: var(--wp--preset--color--ink); }
 .zk-light .zk-btn--ghost { color: var(--wp--preset--color--ink); border-color: var(--wp--preset--color--ink); }
 
 @media (prefers-reduced-motion: reduce) {
 	.zk-brief-js .zk-brief-form .zk-brief-step,
 	.zk-brief-js .zk-route.is-folding,
 	.zk-chip__tag, .zk-react p, .zk-stamp { animation: none !important; }
-	.zk-progress__bar, .zk-slot, .zk-brief-form .zk-chip, .zk-brief-form .zk-route { transition: none !important; }
+	.zk-brief__line { animation: none !important; }
+	.zk-progress__bar, .zk-brief__val, .zk-brief-form .zk-chip, .zk-brief-form .zk-route { transition: none !important; }
 }
 
 /* The `hidden` attribute is a presentation hint with the specificity of a type
