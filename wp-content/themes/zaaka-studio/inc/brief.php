@@ -221,7 +221,8 @@ add_action( 'admin_post_zaaka_brief', 'zaaka_brief_submit' );
  * out; the studio's copy has the stored brief in the admin behind it either way.
  */
 function zaaka_brief_notify( $values, $post_id ) {
-	$who = $values['company'] ? $values['company'] : $values['name'];
+	$who    = $values['company'] ? $values['company'] : $values['name'];
+	$report = array();
 
 	/**
 	 * Filter whether the person who filled in the brief is sent their own copy.
@@ -229,16 +230,19 @@ function zaaka_brief_notify( $values, $post_id ) {
 	 * does not arrive, so change the copy too if you use it.
 	 */
 	if ( apply_filters( 'zaaka_brief_send_client_copy', true, $values ) ) {
-		zaaka_brief_send(
+		zaaka_mail_last_error( '' );
+		$ok = zaaka_brief_send(
 			$values['email'],
 			__( 'Your brief — Zaaka', 'zaaka-studio' ),
 			zaaka_brief_email_html( $values, $post_id, 'client' ),
 			zaaka_brief_email_text( $values, $post_id, 'client' ),
 			array( 'Reply-To: ' . zaaka_brief_email() )
 		);
+		$report['client'] = $ok ? 'sent' : ( 'failed: ' . zaaka_mail_last_error() );
 	}
 
-	zaaka_brief_send(
+	zaaka_mail_last_error( '' );
+	$ok = zaaka_brief_send(
 		zaaka_brief_email(),
 		sprintf(
 			/* translators: %s: company or person's name. */
@@ -249,6 +253,13 @@ function zaaka_brief_notify( $values, $post_id ) {
 		zaaka_brief_email_text( $values, $post_id, 'studio' ),
 		array( 'Reply-To: ' . $values['email'] )
 	);
+	$report['studio'] = $ok ? 'sent' : ( 'failed: ' . zaaka_mail_last_error() );
+
+	// Written onto the brief so a silent drop is visible where the brief is
+	// read, rather than only in an inbox that never fills up.
+	if ( $post_id ) {
+		update_post_meta( $post_id, 'zaaka_mail_report', $report );
+	}
 }
 
 /**
@@ -276,6 +287,21 @@ function zaaka_brief_metabox() {
 				);
 			}
 			echo '</tbody></table>';
+
+			$report = get_post_meta( $post->ID, 'zaaka_mail_report', true );
+			if ( is_array( $report ) ) {
+				echo '<p style="margin-top:1rem"><strong>' . esc_html__( 'Email', 'zaaka-studio' ) . '</strong><br>';
+				foreach ( $report as $who => $state ) {
+					$ok = ( 'sent' === $state );
+					printf(
+						'<span style="color:%s">%s</span> &mdash; %s<br>',
+						$ok ? '#007017' : '#b32d2e',
+						esc_html( 'client' === $who ? __( 'Copy to them', 'zaaka-studio' ) : __( 'Notification to us', 'zaaka-studio' ) ),
+						esc_html( $state )
+					);
+				}
+				echo '</p>';
+			}
 		},
 		'brief',
 		'normal',
