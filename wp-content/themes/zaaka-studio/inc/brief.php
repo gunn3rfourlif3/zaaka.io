@@ -29,6 +29,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 function zaaka_brief_fields() {
 	return array(
 		'route'      => array( 'label' => 'What it is',            'type' => 'text' ),
+		'buildtype'  => array( 'label' => 'What form it takes',    'type' => 'text' ),
+		'industry'   => array( 'label' => 'Industry',              'type' => 'text' ),
 		'problem'    => array( 'label' => 'The problem now',       'type' => 'textarea' ),
 		'donothing'  => array( 'label' => 'If nothing is done',    'type' => 'text' ),
 		'audience'   => array( 'label' => 'Who it is for',         'type' => 'text' ),

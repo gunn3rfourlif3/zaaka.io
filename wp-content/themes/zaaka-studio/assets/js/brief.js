@@ -57,43 +57,60 @@
 	function t(x) { return { kind: "text", s: x }; }
 	function v(x) { return { kind: "val", s: x }; }
 
-	/* A line appears only once every key it needs has an answer. Optional extras
-	   fold into the same sentence rather than adding a stub line of their own. */
+	/* Each line needs only its first key; everything else folds into the same
+	   sentence when it arrives. Grouping them this way is the point — a line per
+	   answer reads as a receipt of what was clicked, whereas "It is for your
+	   customers, about 400 of them, and it earns through a subscription" reads
+	   as someone repeating your project back to you. */
 	var LINES = [
 		{ need: ["route"], build: function (a) {
-			return [t((firstName(a.name) || "Someone") + " is "), v(a.route), t(".")]; } },
+			var o = [t((firstName(a.name) || "Someone") + " is ")];
+			if (a.buildtype) {
+				/* The form is more specific than the route, and saying both
+				   gives you "building a SaaS product — a new product or
+				   platform", which is the same fact twice. */
+				o.push(t("building "), v(a.buildtype));
+				if (a.industry) { o.push(t(" for "), v(lower(a.industry))); }
+			} else {
+				o.push(v(a.route));
+			}
+			return o.concat(t(".")); } },
 
 		{ need: ["problem"], build: function (a) {
-			return [t("Right now, "), v(lower(a.problem)), t(".")]; } },
-
-		{ need: ["donothing"], build: function (a) {
-			return [t("Leave it twelve months and "), v(lower(a.donothing)), t(".")]; } },
+			var o = [t("Right now, "), v(lower(a.problem)), t(".")];
+			if (a.donothing) { o.push(t(" Left twelve months, "), v(lower(a.donothing)), t(".")); }
+			return o; } },
 
 		{ need: ["audience"], build: function (a) {
 			var o = [t("It is for "), v(a.audience)];
-			if (a.count) { o.push(t(" — about "), v(a.count), t(" of them")); }
-			return o.concat(t(".")); } },
+			if (a.count) { o.push(t(", about "), v(a.count), t(" of them")); }
+			if (a.money)  { o.push(t(", and it earns through "), v(a.money)); }
+			o.push(t("."));
+			if (a.metric) { o.push(t(" Success looks like "), v(lower(a.metric)), t(".")); }
+			return o; } },
 
-		{ need: ["money"], build: function (a) {
-			var o = [t("It earns through "), v(a.money)];
-			if (a.metric) { o.push(t(", and success looks like "), v(lower(a.metric))); }
-			return o.concat(t(".")); } },
+		{ need: ["money"], skipIf: "audience", build: function (a) {
+			var o = [t("It earns through "), v(a.money), t(".")];
+			if (a.metric) { o.push(t(" Success looks like "), v(lower(a.metric)), t(".")); }
+			return o; } },
 
 		{ need: ["url"], build: function (a) {
-			var o = [t("Today there is "), v(a.url)];
+			var o = [t("There is already "), v(a.url)];
 			if (a.owner) { o.push(t(", and "), v(a.owner)); }
 			return o.concat(t(".")); } },
 
 		{ need: ["scope"], build: function (a) {
-			return [t("First release: "), v(a.scope), t(".")]; } },
+			return [t("The first release needs "), v(a.scope), t(".")]; } },
 
 		{ need: ["timeline"], build: function (a) {
-			var o = [t("Live in "), v(a.timeline)];
-			if (a.datereal) { o.push(t(" — "), v(a.datereal)); }
-			return o.concat(t(".")); } },
+			var o = [t("You want it live in "), v(a.timeline)];
+			if (a.datereal) { o.push(t(", and "), v(lower(a.datereal))); }
+			o.push(t("."));
+			if (a.budget) { o.push(t(" Budget is "), v(a.budget), t(".")); }
+			return o; } },
 
-		{ need: ["budget"], build: function (a) {
-			return [t("Budget "), v(a.budget), t(".")]; } },
+		{ need: ["budget"], skipIf: "timeline", build: function (a) {
+			return [t("Budget is "), v(a.budget), t(".")]; } },
 
 		{ need: ["decider"], build: function (a) {
 			var o = [v(cap(a.decider))];
@@ -118,8 +135,16 @@
 	/* Type the sentence as plain text, then swap in the marked-up version once
 	   it is complete. The two are character-identical, so the swap is invisible
 	   — it just lets the values keep their own colour without typing tags. */
+	/* Every paint claims the element. A line that is still typing when a later
+	   answer extends it — "Right now, X." becoming "Right now, X. Left twelve
+	   months, Y." — must stop, or its loop finishes writing the stale sentence
+	   over the new one a few frames later. */
+	var paintSeq = 0;
+
 	function paint(el, parts, animate) {
 		var plain = parts.map(function (p) { return p.s; }).join("");
+		var mine  = ++paintSeq;
+		el.dataset.paint = mine;
 
 		function markup() {
 			el.textContent = "";
@@ -144,6 +169,7 @@
 		var i = 0;
 		var speed = plain.length > 60 ? 8 : 14;
 		(function tick() {
+			if (+el.dataset.paint !== mine) { return; }   // superseded
 			el.textContent = plain.slice(0, ++i);
 			if (i < plain.length) { window.setTimeout(tick, speed); } else { markup(); }
 		})();
@@ -152,14 +178,18 @@
 	function renderLines() {
 		LINES.forEach(function (line, i) {
 			var ready = line.need.every(function (k) { return answers[k]; });
-			if (!ready) { return; }
+			if (line.skipIf && answers[line.skipIf]) { ready = false; }
+			if (!ready) {
+				if (lineEl[i]) { lineEl[i].el.remove(); lineEl[i] = null; }
+				return;
+			}
 
 			var parts = line.build(answers);
 			var plain = parts.map(function (p) { return p.s; }).join("");
 			var have  = lineEl[i];
 
 			if (have && have.text === plain) { return; }
-			if (have) { have.text = plain; paint(have.el, parts, false); return; }
+			if (have) { have.text = plain; paint(have.el, parts, true); return; }
 
 			var el = document.createElement("p");
 			el.className = "zk-brief__line";
@@ -395,26 +425,32 @@
 	}
 
 	function commit() {
-		["name", "problem", "count", "metric", "company", "url"].forEach(function (id) {
-			var el = form.querySelector("#zk-" + id);
-			if (el && el.value.trim() && reached(el)) record(id, el.value.trim());
-		});
-		["donothing", "audience", "money", "owner", "datereal", "decider", "clienttime"].forEach(function (name) {
-			var checked = form.querySelector('input[name="zk_' + name + '"]:checked');
-			if (checked && reached(checked)) record(name, checked.value);
-		});
-		["timeline", "budget"].forEach(function (name) {
-			var sel = form.querySelector("#zk-" + name);
-			if (sel && sel.value && reached(sel)) record(name, sel.value);
+		/* Read whatever the form actually has rather than a list of field names
+		   kept in step with it by hand. The hardcoded version silently dropped
+		   the two questions added after it was written: they saved and emailed
+		   correctly and simply never appeared in the panel, which is the worst
+		   kind of bug because nothing looks broken. */
+		var fields = form.querySelectorAll(
+			"input[name^='zk_'], textarea[name^='zk_'], select[name^='zk_']"
+		);
+		Array.prototype.forEach.call(fields, function (el) {
+			if (el.name.indexOf("zk_scope[") === 0) { return; }   // grouped below
+			if (el.name === "zk_route") { return; }               // phrased by its own handler
+			if (el.type === "radio" && !el.checked) { return; }
+			var val = (el.value || "").trim();
+			if (!val || !reached(el)) { return; }
+			record(el.name.replace(/^zk_/, ""), val);
 		});
 
 		var must = [], later = [];
-		form.querySelectorAll('.zk-scope select').forEach(function (s) {
-			var item = s.name.replace(/^zk_scope\[|\]$/g, "").toLowerCase();
-			if (s.value === "must") must.push(item);
-			else if (s.value === "later") later.push(item);
+		Array.prototype.forEach.call(form.querySelectorAll(".zk-scope select"), function (sel) {
+			var item = sel.name.replace(/^zk_scope\[|\]$/g, "").toLowerCase();
+			if (sel.value === "must") { must.push(item); }
+			else if (sel.value === "later") { later.push(item); }
 		});
-		if (must.length) record("scope", must.join(", ") + (later.length ? "; later, " + later.join(", ") : ""));
+		if (must.length) {
+			record("scope", must.join(", ") + (later.length ? "; later, " + later.join(", ") : ""));
+		}
 	}
 
 	form.addEventListener("submit", function () {

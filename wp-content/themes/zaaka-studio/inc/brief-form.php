@@ -150,7 +150,6 @@ function zaaka_brief_form() {
 
 					<fieldset class="zk-brief-step" data-step="1">
 						<legend class="zk-q"><?php esc_html_e( 'First — what should we call you?', 'zaaka-studio' ); ?></legend>
-						<p class="zk-help"><?php esc_html_e( 'Everything after this is about your project. This part is so that we are not writing "Dear client", and so the brief you get back sounds like it was written by a person.', 'zaaka-studio' ); ?></p>
 						<label class="zk-field"><span class="zk-label"><?php esc_html_e( 'Your name', 'zaaka-studio' ); ?></span>
 							<input class="zk-input" type="text" name="zk_name" id="zk-name" autocomplete="given-name" placeholder="<?php esc_attr_e( 'Thandi', 'zaaka-studio' ); ?>"></label>
 					</fieldset>
@@ -171,6 +170,27 @@ function zaaka_brief_form() {
 					</fieldset>
 
 					<fieldset class="zk-brief-step" data-step="3">
+						<legend class="zk-q"><?php esc_html_e( 'What form does it take?', 'zaaka-studio' ); ?></legend>
+						<p class="zk-help"><?php esc_html_e( 'Roughly is fine. If it turns out to be something else once we have talked, that is a normal outcome.', 'zaaka-studio' ); ?></p>
+						<?php
+						echo zaaka_brief_chips( // phpcs:ignore WordPress.Security.EscapeOutput
+							'buildtype',
+							array(
+								'a website'                        => 'A website',
+								'a web app'                        => 'A web app',
+								'a mobile app'                     => 'A mobile app',
+								'a SaaS product'                   => 'A SaaS product',
+								'a workflow automation'            => 'Workflow automation',
+								'an AI agent'                      => 'An AI agent',
+								'an integration between systems'   => 'An integration',
+								'something not on this list'       => 'Not sure yet',
+							)
+						);
+						echo zaaka_brief_text( 'industry', __( 'What industry is it for?', 'zaaka-studio' ), __( 'Property management, logistics, dental practices…', 'zaaka-studio' ) ); // phpcs:ignore WordPress.Security.EscapeOutput
+						?>
+					</fieldset>
+
+					<fieldset class="zk-brief-step" data-step="4">
 						<legend class="zk-q"><?php esc_html_e( 'What is going wrong now?', 'zaaka-studio' ); ?></legend>
 						<p class="zk-help"><?php esc_html_e( 'The problem, not the solution. What is actually happening today is more useful to us than what you think should be built.', 'zaaka-studio' ); ?></p>
 						<label class="zk-field"><span class="zk-label"><?php esc_html_e( 'The problem', 'zaaka-studio' ); ?></span>
@@ -189,7 +209,7 @@ function zaaka_brief_form() {
 						?>
 					</fieldset>
 
-					<fieldset class="zk-brief-step" data-step="4" data-route-skip="integrate">
+					<fieldset class="zk-brief-step" data-step="5" data-route-skip="integrate">
 						<legend class="zk-q"><?php esc_html_e( 'Who is it for?', 'zaaka-studio' ); ?></legend>
 						<p class="zk-help"><?php esc_html_e( 'Who sits in front of this thing, and roughly how many of them.', 'zaaka-studio' ); ?></p>
 						<?php
@@ -211,7 +231,7 @@ function zaaka_brief_form() {
 						</div>
 					</fieldset>
 
-					<fieldset class="zk-brief-step" data-step="5" data-route-skip="site rescue integrate">
+					<fieldset class="zk-brief-step" data-step="6" data-route-skip="site rescue integrate">
 						<legend class="zk-q"><?php esc_html_e( 'How does this make or save money?', 'zaaka-studio' ); ?></legend>
 						<p class="zk-help"><?php esc_html_e( 'The question most briefs never answer. It changes what we would build first more than any feature list does.', 'zaaka-studio' ); ?></p>
 						<?php
@@ -230,7 +250,7 @@ function zaaka_brief_form() {
 						?>
 					</fieldset>
 
-					<fieldset class="zk-brief-step" data-step="6">
+					<fieldset class="zk-brief-step" data-step="7">
 						<legend class="zk-q"><?php esc_html_e( 'What exists already?', 'zaaka-studio' ); ?></legend>
 						<p class="zk-help"><?php esc_html_e( 'Including the parts you are not proud of. A spreadsheet doing a system\'s job counts, and tells us a lot.', 'zaaka-studio' ); ?></p>
 						<?php
@@ -248,7 +268,7 @@ function zaaka_brief_form() {
 						?>
 					</fieldset>
 
-					<fieldset class="zk-brief-step" data-step="7">
+					<fieldset class="zk-brief-step" data-step="8">
 						<legend class="zk-q"><?php esc_html_e( 'What has to be in the first release?', 'zaaka-studio' ); ?></legend>
 						<p class="zk-help"><?php esc_html_e( 'Anything you leave as not needed, we will assume is out of scope for now.', 'zaaka-studio' ); ?></p>
 						<div class="zk-scope" data-scope-generic="<?php echo esc_attr( wp_json_encode( $scope ) ); ?>">
@@ -265,7 +285,7 @@ function zaaka_brief_form() {
 						</div>
 					</fieldset>
 
-					<fieldset class="zk-brief-step" data-step="8">
+					<fieldset class="zk-brief-step" data-step="9">
 						<legend class="zk-q"><?php esc_html_e( 'When does it need to be live?', 'zaaka-studio' ); ?></legend>
 						<p class="zk-help"><?php esc_html_e( 'We will tell you straight away what we think of the date.', 'zaaka-studio' ); ?></p>
 						<?php
@@ -296,7 +316,7 @@ function zaaka_brief_form() {
 						?>
 					</fieldset>
 
-					<fieldset class="zk-brief-step" data-step="9">
+					<fieldset class="zk-brief-step" data-step="10">
 						<legend class="zk-q"><?php esc_html_e( 'What is the budget?', 'zaaka-studio' ); ?></legend>
 						<p class="zk-help"><?php esc_html_e( 'Not so we can spend it. So we can tell you honestly whether the thing you have described can be built for it.', 'zaaka-studio' ); ?></p>
 						<?php
@@ -316,7 +336,7 @@ function zaaka_brief_form() {
 						<div class="zk-react" data-react="budget" aria-live="polite"></div>
 					</fieldset>
 
-					<fieldset class="zk-brief-step" data-step="10">
+					<fieldset class="zk-brief-step" data-step="11">
 						<legend class="zk-q"><?php esc_html_e( 'Who signs it off?', 'zaaka-studio' ); ?></legend>
 						<p class="zk-help"><?php esc_html_e( 'The single best predictor of whether a project goes smoothly. We ask everyone.', 'zaaka-studio' ); ?></p>
 						<?php
@@ -342,7 +362,7 @@ function zaaka_brief_form() {
 						<div class="zk-react" data-react="clienttime" aria-live="polite"></div>
 					</fieldset>
 
-					<fieldset class="zk-brief-step" data-step="11">
+					<fieldset class="zk-brief-step" data-step="12">
 						<legend class="zk-q"><?php esc_html_e( 'Last thing — where do we send it?', 'zaaka-studio' ); ?></legend>
 						<p class="zk-help"><?php esc_html_e( 'Your copy of the brief goes to this address, and so does our reply — usually within one working day.', 'zaaka-studio' ); ?></p>
 						<?php echo zaaka_brief_text( 'company', __( 'Company', 'zaaka-studio' ), 'Mokoena Property Group' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
