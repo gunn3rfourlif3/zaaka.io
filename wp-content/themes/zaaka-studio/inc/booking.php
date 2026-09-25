@@ -4,8 +4,9 @@
  *
  * Every "Book an intro call" link on the site points at /book/, and this
  * redirects to whatever scheduling page is set under Settings → General →
- * Booking link. Changing tools later (Calendly today, something else next
- * year) is then one setting rather than a hunt through page content. With no
+ * Booking link. Changing tools later is then one setting rather than a hunt
+ * through page content — which is the whole point: scheduling tools expire,
+ * get acquired and change their pricing, and nine pages link to /book/. With no
  * link set, /book/ falls back to the contact page, so the button is never a
  * dead end.
  *
@@ -33,10 +34,10 @@ function zaaka_booking_setting() {
 		'<label for="zaaka_booking_url">' . esc_html__( 'Booking link', 'zaaka-studio' ) . '</label>',
 		function () {
 			printf(
-				'<input type="url" id="zaaka_booking_url" name="zaaka_booking_url" value="%s" class="regular-text code" placeholder="https://calendly.com/…">' .
+				'<input type="url" id="zaaka_booking_url" name="zaaka_booking_url" value="%s" class="regular-text code" placeholder="https://cal.com/…">' .
 				'<p class="description">%s</p>',
 				esc_attr( get_option( 'zaaka_booking_url', '' ) ),
-				esc_html__( 'Where /book/ sends people — your Calendly intro-call page. Leave empty to send them to /contact/.', 'zaaka-studio' )
+				esc_html__( 'Where /book/ sends people — your scheduler’s intro-call page. Leave it empty and /book/ falls back to /contact/, which is a working page rather than a dead link. Clear it the day a trial ends: an expired booking page is worse than no booking page.', 'zaaka-studio' )
 			);
 		},
 		'general'
@@ -73,3 +74,30 @@ function zaaka_booking_redirect() {
 	exit;
 }
 add_action( 'template_redirect', 'zaaka_booking_redirect', 1 );
+
+/**
+ * Say so in the admin when there is no booking link.
+ *
+ * An empty setting is a quiet state: every "Book an intro call" button still
+ * works, it just lands on /contact/ instead. That is the right fallback and
+ * exactly the wrong thing to forget about for a month.
+ */
+function zaaka_booking_notice() {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+	if ( get_option( 'zaaka_booking_url', '' ) ) {
+		return;
+	}
+	$screen = get_current_screen();
+	if ( ! $screen || ! in_array( $screen->id, array( 'dashboard', 'options-general' ), true ) ) {
+		return;
+	}
+	printf(
+		'<div class="notice notice-warning"><p>%s <a href="%s">%s</a></p></div>',
+		esc_html__( 'No booking link is set, so every "Book an intro call" button currently lands on the contact page.', 'zaaka-studio' ),
+		esc_url( admin_url( 'options-general.php#zaaka_booking_url' ) ),
+		esc_html__( 'Set one', 'zaaka-studio' )
+	);
+}
+add_action( 'admin_notices', 'zaaka_booking_notice' );

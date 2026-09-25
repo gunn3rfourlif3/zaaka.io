@@ -64,9 +64,9 @@ them. The slugs must be exactly `privacy` and `accessibility`.
 ## The booking link
 
 Every "Book an intro call" button points at `/book/`. The theme redirects that
-to whatever is set in **Settings → General → Booking link** (the Calendly
+to whatever is set in **Settings → General → Booking link** (the scheduler
 intro-call page). With nothing set, `/book/` goes to `/contact/`, so the
-buttons are never dead. The privacy policy names Calendly as a supplier; if the
+buttons are never dead. The privacy policy names the scheduler as a supplier; if the
 scheduling tool changes, change that line too.
 
 ## Case-study summaries and testimonials
@@ -91,3 +91,19 @@ classic editor.
 Because the full-width template does not print the post title, each of those
 pages now carries its own `<h1>` in the markup. Do not delete it — without it
 the page has no h1 at all.
+
+## Swapping schedulers
+
+`/book/` is one setting, and nine pages link to it, so changing tools is a
+two-minute job — but it is three places, not one:
+
+1. **Settings → General → Booking link** — the new URL, or empty to fall back
+   to `/contact/`. Clear it the day a trial ends; an expired booking page is
+   worse than no booking page.
+2. **The privacy policy** names the scheduler twice, as the service you are
+   handed to and in the list of suppliers. A privacy policy naming a provider
+   you no longer use is wrong in the way that matters, not just untidy.
+3. **`docs/BACKLOG.md`**, so the next person knows what is actually in use.
+
+Nothing in the theme names a provider, and nothing from the scheduler runs on
+zaaka.io — it is an outbound link, which is why swapping is this cheap.

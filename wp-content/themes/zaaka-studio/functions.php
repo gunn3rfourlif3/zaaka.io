@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ZAAKA_VERSION', '1.9.1' );
+define( 'ZAAKA_VERSION', '1.9.2' );
 
 require_once get_template_directory() . '/inc/case-study.php';
 require_once get_template_directory() . '/inc/booking.php';

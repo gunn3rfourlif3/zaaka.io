@@ -28,7 +28,11 @@ State as at theme v1.5.0. Ordered by what blocks the site being finished.
 - [x] **Discovery Sprint page** published at /discovery-sprint/; Contact updated;
       default Sample Page moved to draft.
 
-- [x] **Set the Calendly link** — https://calendly.com/hello-zaaka/30min,
+- [ ] **Replace the scheduler.** The Calendly trial is expiring. Cal.com's
+  free-for-individuals tier is the like-for-like swap and imports Calendly
+  event types in one click. Paste the new URL into Settings → General →
+  Booking link, and update the two Calendly mentions in the privacy policy.
+  Previously: https://calendly.com/hello-zaaka/30min,
       in Settings → General → Booking link (11 Sep 2026).
 - [ ] **Add real result figures and testimonials** to each project's Case
       study summary box. The slots are built and hidden while empty.
