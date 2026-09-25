@@ -178,3 +178,25 @@ define( 'ZAAKA_SMTP_PASS', '&lt;the mailbox password&gt;' );</pre>
 	</div>
 	<?php
 }
+
+/**
+ * Who the mail is from.
+ *
+ * WordPress defaults to "WordPress" <wordpress@yourdomain>, which is what the
+ * brief was arriving as. The name is the site's own, and the address is the
+ * mailbox briefs already go to — so a reply from a recipient reaches a real
+ * inbox, and the sending domain matches the From domain, which is what SPF
+ * checks. With SMTP configured, zaaka_mail_smtp() sets the authenticated
+ * mailbox instead and wins, because it runs on phpmailer_init after these.
+ */
+function zaaka_mail_from_name() {
+	$name = get_bloginfo( 'name' );
+	return $name ? $name : 'Zaaka.io';
+}
+add_filter( 'wp_mail_from_name', 'zaaka_mail_from_name' );
+
+function zaaka_mail_from( $from ) {
+	$address = zaaka_brief_email();
+	return is_email( $address ) ? $address : $from;
+}
+add_filter( 'wp_mail_from', 'zaaka_mail_from' );
