@@ -214,34 +214,39 @@ add_action( 'admin_post_nopriv_zaaka_brief', 'zaaka_brief_submit' );
 add_action( 'admin_post_zaaka_brief', 'zaaka_brief_submit' );
 
 /**
- * The notification. Plain text on purpose — it is read on a phone, usually
- * within a minute of arriving, and an HTML email would be one more thing
- * capable of rendering badly.
+ * Send the two messages: the visitor's copy, then the studio's notification.
+ *
+ * The visitor's copy goes first and on purpose. If the host throttles or drops
+ * the second one, the message that was promised on screen is the one that got
+ * out; the studio's copy has the stored brief in the admin behind it either way.
  */
 function zaaka_brief_notify( $values, $post_id ) {
-	$lines = array();
-	foreach ( zaaka_brief_fields() as $key => $field ) {
-		if ( '' === $values[ $key ] ) {
-			continue;
-		}
-		$lines[] = $field['label'] . ': ' . $values[ $key ];
+	$who = $values['company'] ? $values['company'] : $values['name'];
+
+	/**
+	 * Filter whether the person who filled in the brief is sent their own copy.
+	 * Turning this off leaves the confirmation screen promising something that
+	 * does not arrive, so change the copy too if you use it.
+	 */
+	if ( apply_filters( 'zaaka_brief_send_client_copy', true, $values ) ) {
+		zaaka_brief_send(
+			$values['email'],
+			__( 'Your brief — Zaaka', 'zaaka-studio' ),
+			zaaka_brief_email_html( $values, $post_id, 'client' ),
+			zaaka_brief_email_text( $values, $post_id, 'client' ),
+			array( 'Reply-To: ' . zaaka_brief_email() )
+		);
 	}
 
-	if ( $post_id ) {
-		$lines[] = '';
-		$lines[] = 'In the admin: ' . get_edit_post_link( $post_id, '' );
-	}
-
-	$subject = sprintf(
-		/* translators: %s: company or person's name. */
-		__( 'Brief — %s', 'zaaka-studio' ),
-		$values['company'] ? $values['company'] : $values['name']
-	);
-
-	wp_mail(
+	zaaka_brief_send(
 		zaaka_brief_email(),
-		$subject,
-		implode( "\n", $lines ),
+		sprintf(
+			/* translators: %s: company or person's name. */
+			__( 'Brief — %s', 'zaaka-studio' ),
+			$who
+		),
+		zaaka_brief_email_html( $values, $post_id, 'studio' ),
+		zaaka_brief_email_text( $values, $post_id, 'studio' ),
 		array( 'Reply-To: ' . $values['email'] )
 	);
 }
