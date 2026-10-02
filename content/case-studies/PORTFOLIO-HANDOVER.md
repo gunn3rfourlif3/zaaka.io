@@ -37,10 +37,10 @@ then set the fields in the sidebar.
 
 ## Still needed
 
-1. **Featured images.** The work grid renders from them; without one a project
-   appears as an empty card. Locare and Uberfi keep theirs in `brand/`. Add a
-   wide shot of each storefront there and set it as the featured image.
-   Zaaka's own egress blocks both domains, so these cannot be captured here.
+1. ~~Featured images.~~ **Done.** `brand/buddhapets-featured.png` and
+   `brand/cofifi-featured.png`, cropped from the full-page captures to 1600×1000
+   on the hero. Upload each to the Media Library and set it as the project's
+   featured image — the work grid renders from that, not from the file.
 2. **Result figures.** The one thing that cannot be written for you, and the
    gap `client-appeal-strategy.md` has listed since September. Orders, revenue,
    conversion, page speed before and after — one real number each is enough.
@@ -49,8 +49,9 @@ then set the fields in the sidebar.
 
 ## One flag
 
-`cofifi.com` currently serves a coming-soon email capture, not the storefront
-the case study describes. Published with its live link, a prospect clicking
+`cofifi.com` currently serves a coming-soon email capture. The storefront
+itself exists and is built — the screenshot behind the featured image is of the
+real thing — it is simply not what that domain serves yet. Published with its live link, a prospect clicking
 through from the portfolio lands on a signup form. Changing `Live URL` to empty
 hides the link and leaves the case study intact; put it back the day the shop
 opens.
