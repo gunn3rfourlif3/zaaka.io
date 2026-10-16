@@ -637,15 +637,28 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 .zk-step h3 { margin: 0 0 .6rem; }
 .zk-step p { margin: 0; }
 
+/* Section header: headline left, aside bottom-right on the same baseline.
+   The `30ch` cap was measured in the *body* font, not the 3.25rem display
+   one, so it worked out at roughly 240px and squeezed the headline hard
+   enough to break "hand-offs" across two lines. The headline now carries
+   its own breaks — one sentence per line — so the group just needs to size
+   to its content and leave the aside the far edge. */
 .zk-process__head { margin-bottom: 0; }
 .zk-process__title.zk-process__title {
-	flex: 1 1 auto; max-width: 30ch; margin-left: 0; margin-right: auto;
+	flex: 0 1 auto; max-width: 100%; margin-left: 0; margin-right: auto;
 }
 .zk-process__title .wp-block-heading { margin: 0; }
-.zk-process__aside { max-width: 26ch; text-align: right; margin: 0; }
+
+/* The hairline reads the aside as a caption on the headline rather than as
+   text stranded mid-canvas, and rhymes with the rule over each step below. */
+.zk-process__aside {
+	max-width: 26ch; text-align: right; margin: 0 0 0 auto;
+	padding-top: .9rem;
+	border-top: 1px solid var(--wp--preset--color--line);
+}
 
 @media (max-width: 781px) {
-	.zk-process__aside { text-align: left; }
+	.zk-process__aside { text-align: left; margin-left: 0; }
 	.zk-step::before { width: 100%; }
 }
 

@@ -14,7 +14,7 @@
 <!-- wp:group {"className":"zk-process__title","layout":{"type":"default"}} -->
 <div class="wp-block-group zk-process__title">
 <!-- wp:paragraph {"className":"is-style-eyebrow"} --><p class="is-style-eyebrow">How we work</p><!-- /wp:paragraph -->
-<!-- wp:heading {"level":2,"fontSize":"xxxl"} --><h2 class="wp-block-heading has-xxxl-font-size">Small team. Short loops. No hand-offs.</h2><!-- /wp:heading -->
+<!-- wp:heading {"level":2,"fontSize":"xxxl"} --><h2 class="wp-block-heading has-xxxl-font-size">Small team.<br>Short loops.<br>No hand-offs.</h2><!-- /wp:heading -->
 </div>
 <!-- /wp:group -->
 <!-- wp:paragraph {"className":"zk-process__aside","textColor":"muted","fontSize":"sm"} --><p class="zk-process__aside has-muted-color has-text-color has-sm-font-size">Four stages. The same two people through all of them.</p><!-- /wp:paragraph -->
